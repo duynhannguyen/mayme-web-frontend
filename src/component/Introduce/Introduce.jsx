@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Page4 = () => {
+const Introduce = () => {
   return (
     <div class="flex flex-col gap-10 items-center justify-center ">
       <div class="w-3/5 p-8  rounded-lg shadow-xl flex bg-green-50">
@@ -52,4 +52,4 @@ const Page4 = () => {
   )
 }
 
-export default Page4
+export default Introduce

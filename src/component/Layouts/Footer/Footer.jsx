@@ -214,7 +214,7 @@ const Footer = () => {
         <a
           class="font-semibold text-neutral-600 dark:text-neutral-400"
           href="https://tailwind-elements.com/"
-          >Tailwind Elements</a
+          >MAYME Elements</a
         >
       </div>
     </footer>

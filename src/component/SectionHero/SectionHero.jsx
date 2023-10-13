@@ -1,9 +1,8 @@
 import React from 'react'
 
 const SectionHero = () => {
-    return (
-
-        <section className=" dark:text-gray-100 " >
+  return (
+    <section className=" dark:text-gray-100 " >
             <div className="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
                 <div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
                     <img src="https://i.pinimg.com/originals/e3/70/ba/e370bad22b7470d7fabb620d1df03fcb.jpg" alt="" className=" rounded-full object-contain  h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128" />
@@ -23,8 +22,7 @@ const SectionHero = () => {
             </div>
 
         </section>
-
-    )
+  )
 }
 
 export default SectionHero

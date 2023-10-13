@@ -15,7 +15,7 @@ const LoginPage = () => {
   };
   const inputType = setInputType(showPassword);
   return (
-    <div className="w-full h-ful relative ">
+    <div className="w-full h-full relative ">
       <img
         className=" w-full max-h-screen opacity-10  "
         src="images/loginbg.jpg"

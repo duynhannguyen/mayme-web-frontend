@@ -16,12 +16,12 @@ const Header = () => {
               </a>
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-7 ">
-              <a
-                href="#"
+              <Link
+                to={"/signup"}
                 class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
               >
                 Đăng ký
-              </a>
+              </Link>
               <Link
                 to={"/login"}
                 class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full mr-4"

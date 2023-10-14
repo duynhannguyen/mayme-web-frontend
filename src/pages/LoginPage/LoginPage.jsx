@@ -1,7 +1,7 @@
 import { EyeInvisibleFilled, EyeOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import Button from "../../componets/Button.jsx/Button.jsx";
-import FieldTextInput from "../../componets/FieldTextInput.js/FieldTextInput.jsx";
+import Button from "../../component/Button.jsx/Button.jsx";
+import FieldTextInput from "../../component/FieldTextInput/FieldTextInput.jsx";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);

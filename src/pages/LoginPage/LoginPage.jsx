@@ -4,32 +4,51 @@ import Button from "../../component/Button.jsx/Button.jsx";
 import FieldTextInput from "../../component/FieldTextInput/FieldTextInput.jsx";
 import * as yup from "yup";
 import { useFormik } from "formik";
-const LoginValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invaid email address")
-    .required("email is required"),
-  password: yup
-    .string()
-    .matches(
-      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).*$/,
-      "Password must contain at least one number, one special character, and one uppercase letter"
-    )
-    .min(8)
-    .required("password is required"),
-});
+import AuthApi from "../../services/authAPI.js";
+import { TOKEN_TYPES } from "../../constant/constant.js";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/Auth/authSlice.js";
+import CustomErrorMessage from "../../component/CustomErrorMessage/CustomErrorMessage.jsx";
+import { validationSchema } from "../../../validationSchema/auth.validation.js";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showToggleIcon, setShowToggleIcon] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    handleSubmit: (value) => {},
+    onSubmit: async (values) => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await AuthApi.login(values);
+        const accessToken = response.data.accessToken;
+        if (accessToken) {
+          localStorage.setItem(TOKEN_TYPES.ACCESS_TOKEN, accessToken);
+          const currentUserResponse = await AuthApi.fetchCurrentUser();
+          const currentUserData = currentUserResponse.data;
+          const payload = {
+            user: currentUserData,
+          };
+          dispatch(login(payload));
+          navigate("/");
+        }
+      } catch (error) {
+        setError(error.response.data?.message);
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    validationSchema: validationSchema.LoginValidationSchema,
   });
 
   const setInputType = (showPassword) => {
@@ -40,7 +59,7 @@ const LoginPage = () => {
     }
   };
   const inputType = setInputType(showPassword);
-  const { handleChange, handleSubmit } = formik;
+  const { handleChange, handleSubmit, errors } = formik;
   return (
     <div className="w-full h-full relative ">
       <img
@@ -54,18 +73,26 @@ const LoginPage = () => {
         </p>
         <p className=" text-xl mb-3 font-bold ">Đăng nhập</p>
         <form onSubmit={handleSubmit}>
+          {/* {error && <p className="text-red-500 my-1">{error}</p>} */}
           <FieldTextInput
-            placeHolder={"Tên đăng nhập"}
+            id="email"
+            name="email"
+            placeholder="Tên đăng nhập"
             handleChange={handleChange}
           />
+          {errors.email && <CustomErrorMessage content={errors.email} />}
           <FieldTextInput
-            placeHolder={"Mật khẩu"}
+            placeholder="Mật khẩu"
+            id="password"
+            name="password"
             type={inputType}
             showPassword={showPassword}
-            value={showToggleIcon}
+            // value={showToggleIcon}
             setShowToggleIcon={setShowToggleIcon}
             handleChange={handleChange}
           />
+          {/* {error && <p className="text-red-500 my-1">{error}</p>} */}
+          {errors.password && <CustomErrorMessage content={errors.password} />}
           <Button type="submit" name={"Đăng nhập"} />
           {showToggleIcon ? (
             <span

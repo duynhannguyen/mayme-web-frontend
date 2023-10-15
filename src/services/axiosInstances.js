@@ -1,6 +1,7 @@
 import axios from "axios";
+import { TOKEN_TYPES } from "../constant/constant.js";
 
-const BASE_API_URL = "http://localhost:3001";
+const BASE_API_URL = "http://localhost:3001/api/v1";
 
 const api = axios.create({
   baseURL: BASE_API_URL,
@@ -21,7 +22,6 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log(error);
     if (error.response.status === 401) {
       localStorage.removeItem(TOKEN_TYPES.ACCESS_TOKEN);
       window.location.href = "/login";

@@ -9,4 +9,8 @@ const AuthApi = {
     const url = "/auth/login";
     return api.post(url, body);
   },
+  currentUser: () => {
+    const url = "/auth/curent-user";
+    return api.get(url);
+  },
 };

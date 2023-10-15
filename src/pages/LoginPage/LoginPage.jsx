@@ -2,6 +2,7 @@ import { EyeInvisibleFilled, EyeOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import Button from "../../component/Button.jsx/Button.jsx";
 import FieldTextInput from "../../component/FieldTextInput/FieldTextInput.jsx";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,6 +15,10 @@ const LoginPage = () => {
     }
   };
   const inputType = setInputType(showPassword);
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/mainpage");
+  };
   return (
     <div className="w-full h-full relative ">
       <img
@@ -35,7 +40,8 @@ const LoginPage = () => {
             value={showToggleIcon}
             setShowToggleIcon={setShowToggleIcon}
           />
-          <Button name={"Đăng nhập"} />
+          <Button name={"Đăng nhập"} onClick={handleLogin} />
+
           {showToggleIcon ? (
             <span
               onClick={() => setShowPassword(!showPassword)}

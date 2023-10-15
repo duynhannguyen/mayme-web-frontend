@@ -52,7 +52,7 @@ const Evalute = () => {
         <div className="pt-6 text-center space-y-4">
           <blockquote>
             <p className="text-lg font-medium text-gray-600">
-            Dễ sử dụng quá,, thực sự thuận tiện mọi người ạ.
+            Dễ sử dụng quá, thực sự thuận tiện mọi người ạ.
             </p>
           </blockquote>
           <figcaption className="font-medium">

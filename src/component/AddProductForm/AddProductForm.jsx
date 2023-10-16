@@ -2,6 +2,63 @@ import React from 'react'
 import { PhotoIcon} from '@heroicons/react/24/solid';
 
 const AddProductForm = () => {
+  const [formData, setFormData] = useState({
+    code: '',
+    costPrice: '',
+    name: '',
+    sellingPrice: '',
+    menuType: 'Đồ ăn',
+    group: 'Lựa chọn',
+    file: null,
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleFileInputChange = (e) => {
+    setFormData({
+      ...formData,
+      file: e.target.files[0],
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Tạo một đối tượng dữ liệu form để gửi tới Postman
+    const form = new FormData();
+    form.append('code', formData.code);
+    form.append('costPrice', formData.costPrice);
+    form.append('name', formData.name);
+    form.append('sellingPrice', formData.sellingPrice);
+    form.append('menuType', formData.menuType);
+    form.append('group', formData.group);
+    form.append('file', formData.file);
+
+    // Gửi dữ liệu tới Postman
+    fetch('YOUR_POSTMAN_ENDPOINT', {
+      method: 'POST',
+      body: form,
+    })
+      .then((response) => {
+        // Xử lý phản hồi từ Postman
+        if (response.ok) {
+          // Nếu thành công, bạn có thể thực hiện các hành động khác ở đây
+          console.log('Dữ liệu đã được gửi thành công');
+        } else {
+          // Nếu có lỗi, bạn có thể xử lý lỗi ở đây
+          console.error('Có lỗi xảy ra khi gửi dữ liệu');
+        }
+      })
+      .catch((error) => {
+        // Xử lý lỗi kết nối hoặc lỗi xử lý từ Postman
+        console.error('Có lỗi xảy ra khi gửi dữ liệu', error);
+      });
+  };
   return (
     <form >
       <div className=" ">
@@ -141,6 +198,7 @@ const AddProductForm = () => {
         <button
           type="submit"
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          onClick={handleSubmit}
         >
           Thêm
         </button>

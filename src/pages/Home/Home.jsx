@@ -13,7 +13,7 @@ const Home = () => {
             <SafeSolution/>
             <Introduce/>
             <Evalute/>
-            <AddProductForm/>
+            
         </ >
     )
 }

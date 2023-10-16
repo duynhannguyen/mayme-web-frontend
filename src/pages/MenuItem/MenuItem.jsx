@@ -26,7 +26,7 @@ const MenuItem = () => {
             <img
               src="https://bepvang.org.vn/Userfiles/Upload/images/Download/2016/8/4/a94990116a6b48668ac78d90d6cfdd71.jpg"
               alt="product"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-bl-3xl rounded-br-3xl rounded-tr-3xl rounded-tl-3xl"
             />
           </div>
 

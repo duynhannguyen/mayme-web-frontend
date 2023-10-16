@@ -17,10 +17,7 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => {
-    console.log(response);
-    return response;
-  },
+  (response) => response,
   (error) => {
     if (error.response.status === 401) {
       localStorage.removeItem(TOKEN_TYPES.ACCESS_TOKEN);

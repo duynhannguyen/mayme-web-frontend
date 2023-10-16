@@ -10,6 +10,7 @@ function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const formik = useFormik({
     initialValues: {
       hoTen: "",
@@ -33,6 +34,9 @@ function SignupPage() {
     validationSchema: validationSchema.signupValidationSchema,
   });
   const { handleChange, handleSubmit, errors } = formik;
+  if (isAuthenticated) {
+    return navigate("/");
+  }
   return (
     <div className="h-screen md:flex">
       <div className="w-full h-full">

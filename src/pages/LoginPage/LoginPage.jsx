@@ -2,7 +2,6 @@ import { EyeInvisibleFilled, EyeOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import Button from "../../component/Button.jsx/Button.jsx";
 import FieldTextInput from "../../component/FieldTextInput/FieldTextInput.jsx";
-import * as yup from "yup";
 import { useFormik } from "formik";
 import AuthApi from "../../services/authAPI.js";
 import { TOKEN_TYPES } from "../../constant/constant.js";
@@ -19,6 +18,7 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  console.log(isAuthenticated);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -39,7 +39,7 @@ const LoginPage = () => {
             user: currentUserData,
           };
           dispatch(login(payload));
-          navigate("/");
+          navigate("/mainpage");
         }
       } catch (error) {
         setError(error.response.data?.message);
@@ -50,7 +50,7 @@ const LoginPage = () => {
     },
     validationSchema: validationSchema.LoginValidationSchema,
   });
-
+  const { handleChange, handleSubmit, errors } = formik;
   const setInputType = (showPassword) => {
     if (showPassword) {
       return "text";
@@ -59,6 +59,9 @@ const LoginPage = () => {
     }
   };
   const inputType = setInputType(showPassword);
+  if (isAuthenticated) {
+    return navigate("/");
+  }
   return (
     <div className="w-full h-full relative ">
       <img
@@ -90,7 +93,7 @@ const LoginPage = () => {
             setShowToggleIcon={setShowToggleIcon}
             handleChange={handleChange}
           />
-          <Button name={"Đăng nhập"} />
+          <Button type="submit" name={"Đăng nhập"} />
           {showToggleIcon ? (
             <span
               onClick={() => setShowPassword(!showPassword)}

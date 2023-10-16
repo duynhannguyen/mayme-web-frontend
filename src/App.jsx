@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home";
 import SiteLayout from "./component/Layouts/SiteLayout/SiteLayout";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import SignupPage from "./pages/SignUpPage/SignupPage.jsx";
+import MainPage from "./pages/MainPage/MainPage.jsx"; //
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         </Route>
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
+        <Route path="mainpage" element={<MainPage />} />
       </Routes>
     </Router>
   );

@@ -59,7 +59,6 @@ const LoginPage = () => {
     }
   };
   const inputType = setInputType(showPassword);
-  const { handleChange, handleSubmit, errors } = formik;
   return (
     <div className="w-full h-full relative ">
       <img
@@ -91,9 +90,7 @@ const LoginPage = () => {
             setShowToggleIcon={setShowToggleIcon}
             handleChange={handleChange}
           />
-          {/* {error && <p className="text-red-500 my-1">{error}</p>} */}
-          {errors.password && <CustomErrorMessage content={errors.password} />}
-          <Button type="submit" name={"Đăng nhập"} />
+          <Button name={"Đăng nhập"} />
           {showToggleIcon ? (
             <span
               onClick={() => setShowPassword(!showPassword)}

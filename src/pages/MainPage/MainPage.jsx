@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { UserOutlined, LoginOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/Auth/authSlice.js";
@@ -6,12 +6,19 @@ import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.currentUser);
-  console.log(currentUser);
+  const navigate = useNavigate(); // Sử dụng hook useNavigate
+
+  const [isMenuItemVisible, setIsMenuItemVisible] = useState(false);
+
   const onHandleLogout = () => {
     dispatch(logout());
-    navigate("/");
+    navigate("/"); // Chuyển hướng về trang chính khi đăng xuất
+  };
+
+  const handleClick = () => {
+    setIsMenuItemVisible(!isMenuItemVisible);
+    navigate("/menuitem"); // Chuyển hướng đến trang menuitem khi nhấn nút "Mở"
   };
   return (
     <div>
@@ -63,6 +70,17 @@ const MainPage = () => {
           <div className="col-span-1 p-2  border-transparent">Loại</div>
           <div className="col-span-1 p-2  border-transparent">Giá Bán</div>
           <div className="col-span-1 p-2  border-transparent">Giá Vốn</div>
+        </div>
+        <div className="ml-2 flex justify-between items-center mb-4 bg-green-100">
+          <div className="text-xs font-bold mr-2">SP00003</div>
+          <div className="mr-2">Cafe</div>
+          <div className="mr-2">Đồ ăn</div>
+          <div className="mr-2">0</div>
+          <div className="mr-2">0</div>
+          <div className="mr-2">0</div>
+          <button className="bg-green-400" onClick={handleClick}>
+            Mở
+          </button>
         </div>
       </div>
     </div>

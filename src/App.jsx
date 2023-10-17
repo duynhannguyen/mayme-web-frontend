@@ -6,18 +6,17 @@ import Home from "./pages/Home/Home";
 import SiteLayout from "./component/Layouts/SiteLayout/SiteLayout";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import SignupPage from "./pages/SignUpPage/SignupPage.jsx";
-<<<<<<< HEAD
+
 import MainPage from "./pages/MainPage/MainPage.jsx"; //
 import MenuItem from "./pages/MenuItem/MenuItem.jsx";
 
-=======
 import ProtectedRoute from "./component/ProtectedRoute/ProtectedRoute.jsx";
-import MainPage from "./pages/MainPage/MainPage.jsx";
+
 import { useDispatch } from "react-redux";
 import { TOKEN_TYPES } from "./constant/constant";
 import AuthApi from "./services/authAPI";
 import { login } from "./redux/Auth/authSlice";
->>>>>>> 767fd08e8b6fa8c55ac3365b80269bde9e0e9108
+
 function App() {
   const dispatch = useDispatch();
 
@@ -50,6 +49,7 @@ function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="mainpage" element={<MainPage />} />
+        <Route path="menuitem" element={<MenuItem />} />
         <Route path="menuitem" element={<MenuItem />} />
       </Routes>
     </Router>

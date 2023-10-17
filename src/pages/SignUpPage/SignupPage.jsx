@@ -1,6 +1,42 @@
-import React from "react";
-
+import { useFormik } from "formik";
+import React, { useState } from "react";
+import * as yup from "yup";
+import { validationSchema } from "../../../validationSchema/auth.validation.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import AuthApi from "../../services/authAPI.js";
+import CustomErrorMessage from "../../component/CustomErrorMessage/CustomErrorMessage";
 function SignupPage() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const formik = useFormik({
+    initialValues: {
+      hoTen: "",
+      tenNhaHang: "",
+      sdt: "",
+      email: "",
+      password: "",
+    },
+    onSubmit: async (values) => {
+      try {
+        setLoading(true);
+        setError(null);
+        await AuthApi.signUp(values);
+        navigate("/login");
+      } catch (error) {
+        setError(error.response.data?.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    validationSchema: validationSchema.signupValidationSchema,
+  });
+  const { handleChange, handleSubmit, errors } = formik;
+  if (isAuthenticated) {
+    return navigate("/");
+  }
   return (
     <div className="h-screen md:flex">
       <div className="w-full h-full">
@@ -13,7 +49,7 @@ function SignupPage() {
         </div>
       </div>
       <div className="flex md:w-5/6 justify-center py-10 items-center text-center bg-white">
-        <form className="bg-white">
+        <form className="bg-white" onSubmit={handleSubmit}>
           <h1 className="text-yellow-700 font-bold text-2xl mb-1">MAYME</h1>
           <p className="text-sm font-normal text-gray-600 mb-7"></p>
           <div className="flex items-center  border-2 py-2 px-3 rounded-2xl mb-4">
@@ -32,11 +68,13 @@ function SignupPage() {
             <input
               className="pl-2 outline-none border-none bg-inherit text-black"
               type="text"
-              name=""
-              id=""
+              name="hoTen"
+              id="hoTen"
+              onChange={handleChange}
               placeHolder="Họ tên"
             />
           </div>
+          {errors.hoTen && <CustomErrorMessage content={errors.hoTen} />}
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -55,11 +93,15 @@ function SignupPage() {
             <input
               className="pl-2 outline-none border-none bg-inherit text-black"
               type="text"
-              name=""
-              id=""
+              name="tenNhaHang"
+              id="tenNhaHang"
+              onChange={handleChange}
               placeHolder="Tên nhà hàng "
             />
           </div>
+          {errors.tenNhaHang && (
+            <CustomErrorMessage content={errors.tenNhaHang} />
+          )}
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -78,11 +120,13 @@ function SignupPage() {
             <input
               className="pl-2 outline-none border-none bg-inherit text-black"
               type="text"
-              name=""
-              id=""
+              name="sdt"
+              id="sdt"
+              onChange={handleChange}
               placeHolder="Số điện thoại "
             />
           </div>
+          {errors.sdt && <CustomErrorMessage content={errors.sdt} />}
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl  mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -101,11 +145,13 @@ function SignupPage() {
             <input
               className="pl-2 outline-none border-none bg-inherit text-black"
               type="email"
-              name=""
-              id=""
+              name="email"
+              id="email"
+              onChange={handleChange}
               placeHolder="Địa chỉ email"
             />
           </div>
+          {errors.email && <CustomErrorMessage content={errors.email} />}
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -122,11 +168,13 @@ function SignupPage() {
             <input
               className="pl-2 outline-none border-none bg-inherit text-black"
               type="password"
-              name=""
-              id=""
+              name="password"
+              id="password"
+              onChange={handleChange}
               placeHolder="Mật khẩu"
             />
           </div>
+          {errors.password && <CustomErrorMessage content={errors.password} />}
           <button
             type="submit"
             className="block w-full bg-yellow-700 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"

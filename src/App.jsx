@@ -9,6 +9,7 @@ import SignupPage from "./pages/SignUpPage/SignupPage.jsx";
 
 import MainPage from "./pages/MainPage/MainPage.jsx"; //
 import MenuItem from "./pages/MenuItem/MenuItem.jsx";
+import Menu from "./pages/Menu/Menu.jsx";
 
 import ProtectedRoute from "./component/ProtectedRoute/ProtectedRoute.jsx";
 
@@ -51,6 +52,7 @@ function App() {
         <Route path="mainpage" element={<MainPage />} />
         <Route path="menuitem" element={<MenuItem />} />
         <Route path="menuitem" element={<MenuItem />} />
+        <Route path="menu" element={<Menu />} />
       </Routes>
     </Router>
   );

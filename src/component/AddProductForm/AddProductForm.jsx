@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PhotoIcon} from '@heroicons/react/24/solid';
 import {useFormik} from 'formik';
+import axios from 'axios';
 const AddProductForm = () => {
   const formik=useFormik({
     initialValues: {
@@ -12,11 +13,22 @@ const AddProductForm = () => {
     giaVon: '', 
     },
     onSubmit : async(values)=>{
-      console.log('onSubmit',values)
+      console.log('values ne',values)
+      try {
+        const response = await axios.post('/api/v1/add-product', values);
+        console.log(response.data); // In ra thông báo từ server
+  
+        // Xử lý kết quả từ server (nếu cần)
+  
+      } catch (error) {
+        console.error(error);
+      }
+   
+   
     },
   });
   const {handleSubmit , handleChange}= formik;
-
+  
  
 
 

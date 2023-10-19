@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { AiOutlineUser } from "react-icons/ai";
-import AddProductForm from '../../component/AdddProductForm/AddProductForm';
-
+import AddProductForm from '../../component/AddProductForm/AddProductForm.jsx';
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
 
   const handleButtonClick = () => {
     setShowAddProductForm(true);
   };
-
+  
   return (
     <div className="flex flex-col items-center  min-h-screen">
       <div className="flex justify-between items-center mb-4 container mx-auto px-4 py-2">
@@ -43,7 +42,7 @@ const MainPage = () => {
       </div>
       {showAddProductForm && (
         <div
-          className="fixed top-,0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
+          className="fixed top-,0 left-0 right-0 bottom-0 flex items-center justify-center  bg-opacity-40 bg-gray-400	"
           style={{ zIndex: 9999}}
         >
           <AddProductForm />

@@ -1,102 +1,63 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { PhotoIcon} from '@heroicons/react/24/solid';
-
+import {useFormik} from 'formik';
 const AddProductForm = () => {
-  const [formData, setFormData] = useState({
-    code: '',
-    costPrice: '',
-    name: '',
-    sellingPrice: '',
-    menuType: 'Đồ ăn',
-    group: 'Lựa chọn',
-    file: null,
+  const formik=useFormik({
+    initialValues: {
+    maHangHoa: '',
+    tenHang: '',
+    nhomHang: '',
+    loai: '',
+    giaBan: '',
+    giaVon: '', 
+    },
+    onSubmit : async(values)=>{
+      console.log('onSubmit',values)
+    },
   });
+  const {handleSubmit , handleChange}= formik;
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+ 
 
-  const handleFileInputChange = (e) => {
-    setFormData({
-      ...formData,
-      file: e.target.files[0],
-    });
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Tạo một đối tượng dữ liệu form để gửi tới Postman
-    const form = new FormData();
-    form.append('code', formData.code);
-    form.append('costPrice', formData.costPrice);
-    form.append('name', formData.name);
-    form.append('sellingPrice', formData.sellingPrice);
-    form.append('menuType', formData.menuType);
-    form.append('group', formData.group);
-    form.append('file', formData.file);
-
-    // Gửi dữ liệu tới Postman
-    fetch('YOUR_POSTMAN_ENDPOINT', {
-      method: 'POST',
-      body: form,
-    })
-      .then((response) => {
-        // Xử lý phản hồi từ Postman
-        if (response.ok) {
-          // Nếu thành công, bạn có thể thực hiện các hành động khác ở đây
-          console.log('Dữ liệu đã được gửi thành công');
-        } else {
-          // Nếu có lỗi, bạn có thể xử lý lỗi ở đây
-          console.error('Có lỗi xảy ra khi gửi dữ liệu');
-        }
-      })
-      .catch((error) => {
-        // Xử lý lỗi kết nối hoặc lỗi xử lý từ Postman
-        console.error('Có lỗi xảy ra khi gửi dữ liệu', error);
-      });
-  };
   return (
     <form >
-      <div className=" ">
+      <div className=" bg-white px-10 on " onSubmit={handleSubmit}>
       <div className="border-b     mt-20">
-        <h2 className="text-base font-semibold leading-7">Thêm hàng hóa</h2>
+        <h2 className="text-base font-semibold leading-7 pt-10" >Thêm hàng hóa</h2>
         <div className="flex justify-start gap-40">
           <p>Thông tin</p>
           <p>Mô tả chi tiết</p>
           <p>Thành phần</p>
         </div>
-      </div>
-    
-
-
-        
+      </div>        
          <div className="grid grid-cols-3 gap-3 mt-2">
            <div className="col-span-2">
-            <label htmlFor="last-name" className="block text-sm font-medium leading-6">
+            <label htmlFor="maHangHoa" className="block text-sm font-medium leading-6">
               Mã hàng hóa
             </label>
            
               <input
                 type="text"
-                name="last-name"
-                id="last-name"
+                name="maHangHoa"
+                id="maHangHoa"
+                value={formik.values.maHangHoa}
+                onChange={handleChange}
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
               </div>
               <div>
-            <label htmlFor="last-name" className="block text-sm font-medium leading-6">
+            <label htmlFor="giaVon" className="block text-sm font-medium leading-6">
               Giá vốn
             </label>
            
               <input
-                type="text"
-                name="last-name"
-                id="last-name"
+                  type="text"
+                  name="giaVon"
+                  id="giaVon"
+                  value={formik.values.giaVon}
+              onChange={handleChange}
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -104,27 +65,31 @@ const AddProductForm = () => {
           </div>
           <div className="grid grid-cols-3 gap-3 mt-2">
            <div className="col-span-2">
-            <label htmlFor="last-name" className="block text-sm font-medium leading-6">
+            <label htmlFor="tenHang" className="block text-sm font-medium leading-6">
               Tên hàng 
             </label>
            
               <input
-                type="text"
-                name="last-name"
-                id="last-name"
+                  type="text"
+                  name="tenHang"
+                  id="tenHang"
+                  value={formik.values.tenHang}
+              onChange={handleChange}
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
               </div>
               <div>
-            <label htmlFor="last-name" className="block text-sm font-medium leading-6">
+            <label htmlFor="giaBan" className="block text-sm font-medium leading-6">
               Giá bán
             </label>
            
               <input
-                type="text"
-                name="last-name"
-                id="last-name"
+                  type="text"
+                  name="giaBan"
+                  id="giaBan"
+                  value={formik.values.giaBan}
+              onChange={handleChange}
                 autoComplete="family-name"
                 className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -132,13 +97,16 @@ const AddProductForm = () => {
           </div>
           
         
-          <label htmlFor="country" className="block text-sm font-medium leading-6">
+          <label htmlFor="loai" className="block text-sm font-medium leading-6">
             Loại thực đơn
           </label>
           <div className="mt-2">
             <select
-              id="country"
-              name="country"
+                type="text"
+                name="loai"
+                id="loai"
+                value={formik.values.loai}
+              onChange={handleChange}
               autoComplete="country-name"
               className="  block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             >
@@ -148,13 +116,16 @@ const AddProductForm = () => {
             </select>
           </div>
 
-          <label htmlFor="country" className="block text-sm font-medium leading-6">
+          <label htmlFor="nhomHang" className="block text-sm font-medium leading-6">
             Nhóm hàng
           </label>
           <div className="mt-2">
             <select
-              id="country"
-              name="country"
+                type="text"
+                name="nhomHang"
+                id="nhomHang"
+                value={formik.values.nhomHang}
+              onChange={handleChange}
               autoComplete="country-name"
               className="  block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
             >
@@ -198,7 +169,7 @@ const AddProductForm = () => {
         <button
           type="submit"
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={handleSubmit}
+          
         >
           Thêm
         </button>

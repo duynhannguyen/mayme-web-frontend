@@ -39,11 +39,15 @@ function App() {
       <Routes>
         <Route path="/" element={<SiteLayout />}>
           <Route index element={<Home />} />
+
           {/* <Route path="about" element={<Home />} /> */}
         </Route>
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
-        <Route path="mainpage" element={<MainPage />} />
+        <Route
+          path="mainpage"
+          element={<ProtectedRoute component={MainPage} />}
+        />
       </Routes>
     </Router>
   );

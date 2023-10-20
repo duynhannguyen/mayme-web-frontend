@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const Header = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
+
   return (
     <div>
       <div className="bg-white">
@@ -19,13 +20,13 @@ const Header = () => {
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-7 ">
               <Link
-                to={isAuthenticated ? "/" : "/signup"}
+                to={"/signup"}
                 class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
               >
                 Đăng ký
               </Link>
               <Link
-                to={isAuthenticated ? "/" : "/login"}
+                to={"/login"}
                 class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full mr-4"
               >
                 Đăng nhập

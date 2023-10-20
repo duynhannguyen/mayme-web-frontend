@@ -18,7 +18,7 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log(isAuthenticated);
+  console.log("login", isAuthenticated);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -51,14 +51,14 @@ const LoginPage = () => {
     validationSchema: validationSchema.LoginValidationSchema,
   });
   const { handleChange, handleSubmit, errors } = formik;
-  const setInputType = (showPassword) => {
-    if (showPassword) {
-      return "text";
-    } else {
-      return "password";
-    }
-  };
-  const inputType = setInputType(showPassword);
+  // const setInputType = (showPassword) => {
+  //   if (showPassword) {
+  //     return "text";
+  //   } else {
+  //     return "password";
+  //   }
+  // };
+  // const inputType = setInputType(showPassword);
   if (isAuthenticated) {
     return navigate("/");
   }
@@ -87,14 +87,14 @@ const LoginPage = () => {
             placeholder="Mật khẩu"
             id="password"
             name="password"
-            type={inputType}
+            type={"password"}
             showPassword={showPassword}
             // value={showToggleIcon}
             setShowToggleIcon={setShowToggleIcon}
             handleChange={handleChange}
           />
           <Button type="submit" name={"Đăng nhập"} />
-          {showToggleIcon ? (
+          {/* {showToggleIcon ? (
             <span
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-[20px] bottom-[88px] cursor-pointer"
@@ -103,7 +103,7 @@ const LoginPage = () => {
             </span>
           ) : (
             ""
-          )}
+          )} */}
         </form>
       </div>
     </div>

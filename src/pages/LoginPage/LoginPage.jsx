@@ -9,8 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/Auth/authSlice.js";
 import CustomErrorMessage from "../../component/CustomErrorMessage/CustomErrorMessage.jsx";
-import { validationSchema } from "../../../validationSchema/auth.validation.js";
-
+import {validationSchema} from "../../validationSchema/auth.validation.js"
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showToggleIcon, setShowToggleIcon] = useState("");

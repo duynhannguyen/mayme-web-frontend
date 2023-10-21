@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import * as yup from "yup";
-import { validationSchema } from "../../../validationSchema/auth.validation.js";
+import {validationSchema} from "../../validationSchema/auth.validation.js"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AuthApi from "../../services/authAPI.js";

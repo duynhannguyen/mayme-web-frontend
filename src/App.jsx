@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SiteLayout from "./component/Layouts/SiteLayout/SiteLayout";
+
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import SignupPage from "./pages/SignUpPage/SignupPage.jsx";
 import ProtectedRoute from "./component/ProtectedRoute/ProtectedRoute.jsx";
@@ -39,9 +40,9 @@ function App() {
       <Routes>
         <Route path="/" element={<SiteLayout />}>
           <Route index element={<Home />} />
-
-          {/* <Route path="about" element={<Home />} /> */}
         </Route>
+
+        {/* <Route path="about" element={<Home />} /> */}
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route

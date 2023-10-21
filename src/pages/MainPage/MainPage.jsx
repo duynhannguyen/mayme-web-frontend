@@ -8,7 +8,6 @@ const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.currentUser);
-  console.log(currentUser);
   const onHandleLogout = () => {
     dispatch(logout());
     navigate("/");

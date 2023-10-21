@@ -18,7 +18,6 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log("login", isAuthenticated);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -60,7 +59,7 @@ const LoginPage = () => {
   // };
   // const inputType = setInputType(showPassword);
   if (isAuthenticated) {
-    return navigate("/");
+    return navigate("/mainpage");
   }
   return (
     <div className="w-full h-full relative ">

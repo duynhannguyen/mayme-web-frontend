@@ -1,8 +1,17 @@
 import React from "react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
+import { CloseCircleOutlined } from "@ant-design/icons";
 import { useFormik } from "formik";
+import productValidationSchema from "../../validationSchema/product.validation";
+import CustomErrorMessage from "../CustomErrorMessage/CustomErrorMessage";
 
-const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
+const AddProductForm = ({
+  onSubmitHandler,
+  onHandleCloseForm,
+  onChangeFile,
+  previewImage,
+  closeImage,
+}) => {
   const formik = useFormik({
     initialValues: {
       maHangHoa: "",
@@ -15,15 +24,61 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
     onSubmit: (values) => {
       onSubmitHandler(values);
     },
+    validationSchema: productValidationSchema.addProduct,
   });
+  const previewDishImage = (
+    <div className="w-[500px] h-[300px] relative">
+      <img
+        className="w-full h-full"
+        src={previewImage}
+        alt="Preview dish image"
+      />
+      <CloseCircleOutlined
+        className="absolute text-gray-500 top-0 right-0 translate-x-1/2 -translate-y-1/2 cursor-pointer "
+        onClick={closeImage}
+      />
+    </div>
+  );
 
-  const { handleSubmit, handleChange } = formik;
+  const uploadDishImage = (
+    <div className="text-center">
+      <PhotoIcon
+        className="mx-auto h-12 w-12 text-gray-300"
+        aria-hidden="true"
+      />
+      <div className="mt-4 flex text-sm leading-6 text-gray-600">
+        <label
+          htmlFor="file-upload"
+          className="relative cursor-pointer rounded-mdbg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+        >
+          <span>Upload a file</span>
+          <input
+            id="file-upload"
+            name="image"
+            type="file"
+            accept="image/*"
+            className="sr-only"
+            onChange={onChangeFile}
+          />
+        </label>
+        <p className="pl-1">or drag and drop</p>
+      </div>
+      <p className="text-xs leading-5">PNG, JPG, GIF</p>
+    </div>
+  );
+  const { handleSubmit, handleChange, errors } = formik;
 
   return (
     <form className="bg-white px-10 pt-6" onSubmit={handleSubmit}>
       <div className="   ">
-        <div className="border-b">
+        <div className="border-b ">
           <h2 className="text-base font-semibold leading-7">Thêm hàng hóa</h2>
+          {errors && (
+            <CustomErrorMessage
+              style={"text-center"}
+              content={"Vui lòng điền đây đủ thông tin cần thiết"}
+            />
+          )}
           <div className="flex justify-start gap-40">
             <p>Thông tin</p>
             <p>Mô tả chi tiết</p>
@@ -43,10 +98,10 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
               type="text"
               name="maHangHoa"
               id="maHangHoa"
-              value={formik.values.maHangHoa}
+              // value={formik.values.maHangHoa}
               onChange={handleChange}
               autoComplete="family-name"
-              className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
           <div>
@@ -61,10 +116,14 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
               type="text"
               name="giaVon"
               id="giaVon"
-              value={formik.values.giaVon}
+              // value={formik.values.giaVon}
               onChange={handleChange}
               autoComplete="family-name"
-              className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className={
+                errors.giaVon
+                  ? "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  : "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              }
             />
           </div>
         </div>
@@ -81,10 +140,14 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
               type="text"
               name="tenHang"
               id="tenHang"
-              value={formik.values.tenHang}
+              // value={formik.values.tenHang}
               onChange={handleChange}
               autoComplete="family-name"
-              className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className={
+                errors.tenHang
+                  ? "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  : "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              }
             />
           </div>
           <div>
@@ -99,10 +162,14 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
               type="text"
               name="giaBan"
               id="giaBan"
-              value={formik.values.giaBan}
+              // value={formik.values.giaBan}
               onChange={handleChange}
               autoComplete="family-name"
-              className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className={
+                errors.giaBan
+                  ? "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  : "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              }
             />
           </div>
         </div>
@@ -115,10 +182,10 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
             type="text"
             name="loai"
             id="loai"
-            value={formik.values.loai}
+            // value={formik.values.loai}
             onChange={handleChange}
             autoComplete="country-name"
-            className="  block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            className="  block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
             <option>Lựa chọn</option>
             <option>Đồ ăn</option>
@@ -137,10 +204,10 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
             type="text"
             name="nhomHang"
             id="nhomHang"
-            value={formik.values.nhomHang}
+            // value={formik.values.nhomHang}
             onChange={handleChange}
             autoComplete="country-name"
-            className="  block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            className="  block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
             <option>Lựa chọn</option>
             <option>1</option>
@@ -156,8 +223,9 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
           >
             chọn ảnh
           </label>
+
           <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-            <div className="text-center">
+            {/* <div className="text-center">
               <PhotoIcon
                 className="mx-auto h-12 w-12 text-gray-300"
                 aria-hidden="true"
@@ -170,15 +238,19 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
                   <span>Upload a file</span>
                   <input
                     id="file-upload"
-                    name="file-upload"
+                    name="image"
                     type="file"
+                    accept="image/*"
                     className="sr-only"
+                    onChange={onChangeFile}
                   />
                 </label>
                 <p className="pl-1">or drag and drop</p>
               </div>
               <p className="text-xs leading-5">PNG, JPG, GIF</p>
-            </div>
+            </div> */}
+
+            {previewImage ? previewDishImage : uploadDishImage}
           </div>
         </div>
 

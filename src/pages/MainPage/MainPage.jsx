@@ -7,8 +7,13 @@ import { AiOutlineUser } from "react-icons/ai";
 import axios from "axios";
 import AddProductForm from "../../component/AddProductForm/AddProductForm.jsx";
 import ProductAPI from "../../services/productAPI.js";
+import { Formik } from "formik";
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [error, setError] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -16,18 +21,35 @@ const MainPage = () => {
     dispatch(logout());
     navigate("/");
   };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setPreviewImage(URL.createObjectURL(file));
+    setSelectedFile(file);
+  };
   const handleSubmit = async (values) => {
-    console.log("values ne", values);
     try {
-      const response = await ProductAPI.create(values);
-      console.log(response);
+      setUploading(true);
+      setError(null);
+
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+      formData.append("body", JSON.stringify(values));
+
+      const response = await ProductAPI.create(formData);
       setShowAddProductForm(false);
+      setPreviewImage(null);
     } catch (error) {
       console.error(error);
+    } finally {
+      setUploading(false);
     }
   };
   const onHandleCloseForm = () => {
     setShowAddProductForm(false);
+    setPreviewImage(null);
+  };
+  const cancelPreviewImage = () => {
+    setPreviewImage(null);
   };
   const handleButtonClick = () => {
     setShowAddProductForm(true);
@@ -96,6 +118,9 @@ const MainPage = () => {
           <AddProductForm
             onSubmitHandler={handleSubmit}
             onHandleCloseForm={onHandleCloseForm}
+            onChangeFile={handleFileChange}
+            previewImage={previewImage}
+            closeImage={cancelPreviewImage}
           />
         </div>
       )}

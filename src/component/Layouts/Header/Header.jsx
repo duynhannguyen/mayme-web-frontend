@@ -14,19 +14,19 @@ const Header = () => {
             <div className="flex lg:flex-1">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <h1 class="text-4xl font-bold text-yellow-700">MAYME</h1>
+                <h1 className="text-4xl font-bold text-yellow-700">MAYME</h1>
               </a>
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-7 ">
               <Link
                 to={isAuthenticated ? "/" : "/signup"}
-                class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
+                className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
               >
                 Đăng ký
               </Link>
               <Link
                 to={isAuthenticated ? "/" : "/login"}
-                class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full mr-4"
+                className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full mr-4"
               >
                 Đăng nhập
               </Link>

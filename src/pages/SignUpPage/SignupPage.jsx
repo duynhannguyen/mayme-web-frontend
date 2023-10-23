@@ -6,11 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AuthApi from "../../services/authAPI.js";
 import CustomErrorMessage from "../../component/CustomErrorMessage/CustomErrorMessage";
+import Loading from "../../component/Loading/Loading.jsx";
+import Button from "../../component/Button.jsx/Button.jsx";
+
 function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const handleClick = () => {
+    navigate('/');
+  };
   const formik = useFormik({
     initialValues: {
       hoTen: "",
@@ -39,6 +45,10 @@ function SignupPage() {
   }
   return (
     <div className="h-screen md:flex">
+       {loading ? (
+        <Loading />
+      ) : (
+        <>
       <div className="w-full h-full">
         <div className="w-full  h-full">
           <img
@@ -48,6 +58,7 @@ function SignupPage() {
           />
         </div>
       </div>
+      
       <div className="flex md:w-5/6 justify-center py-10 items-center text-center bg-white">
         <form className="bg-white" onSubmit={handleSubmit}>
           <h1 className="text-yellow-700 font-bold text-2xl mb-1">MAYME</h1>
@@ -181,8 +192,19 @@ function SignupPage() {
           >
             Signup
           </button>
+          <Button 
+              type="button"
+              name="X"
+              className="text-red-500 text-2xl  "
+              // Thêm các thuộc tính CSS tùy chỉnh để định vị nút button
+              style={{ position: "absolute", top: "0", right: "0" }}
+              onClick={handleClick}
+            />
         </form>
+        
       </div>
+      </>
+      )}
     </div>
   );
 }

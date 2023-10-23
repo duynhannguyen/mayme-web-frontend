@@ -2,7 +2,7 @@ import React from 'react';
 import { PhotoIcon } from '@heroicons/react/24/solid';
 import { useFormik } from 'formik';
 
-const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
+const AddForm = ({ onSubmitHandler, onHandleCloseForm }) => {
   const formik = useFormik({
     initialValues: {
       maHangHoa: '',
@@ -17,13 +17,13 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
     },
   });
 
-  const { handleSubmit, handleChange } = formik;
+  const { handleSubmit1, handleChange } = formik;
 
-  
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit1}>
       <div className=" bg-white px-10 on " >
-        <div className="border-b  mt-20">
+        <div className="border-b     mt-20">
           <h2 className="text-base font-semibold leading-7 pt-10" >Thêm hàng hóa</h2>
           <div className="flex justify-start gap-40">
             <p>Thông tin</p>
@@ -98,7 +98,7 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
 
 
         <label htmlFor="loai" className="block text-sm font-medium leading-6">
-          Loại thực đơn   <button  className ="ml-2 text-green-600 text-2xl p-0 px-4">+</button>
+          Loại thực đơn   <button className ="ml-2 text-green-600 text-2xl p-0 px-4">+</button>
         </label>
         
         <div className="mt-2">
@@ -175,12 +175,12 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
           </button>
         </div>
 
-       
+
       </div>
     </form>
 
   )
-        }
+}
 
+export default AddForm
 
-export default AddProductForm

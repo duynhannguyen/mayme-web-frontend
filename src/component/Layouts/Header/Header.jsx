@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const Header = () => {
   const { isAuthenticated, currentUser } = useSelector((state) => state.auth);
-  console.log(currentUser);
-  console.log(isAuthenticated);
   const showUser = (
     <>
       <Link to={"/mainpage"} className="cursor-pointer">
@@ -48,18 +46,7 @@ const Header = () => {
               </a>
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-7 ">
-              <Link
-                to={isAuthenticated ? "/" : "/signup"}
-                className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"
-              >
-                Đăng ký
-              </Link>
-              <Link
-                to={isAuthenticated ? "/" : "/login"}
-                className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full mr-4"
-              >
-                Đăng nhập
-              </Link>
+              {isAuthenticated ? showUser : showGuest}
             </div>
           </nav>
         </header>

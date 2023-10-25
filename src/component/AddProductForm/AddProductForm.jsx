@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
+import { CloseCircleOutlined } from "@ant-design/icons";
 import { useFormik } from "formik";
 import AddForm from "../AddForm/AddForm";
 import TypeMenuApi from "../../services/typeMenuAPI";
+import productValidationSchema from "../../validationSchema/product.validation.js";
+import CustomErrorMessage from "../CustomErrorMessage/CustomErrorMessage.jsx";
 
 const AddProductForm = ({
   onSubmitHandler,
   onHandleCloseForm,
   showAddProductForm,
+  onChangeFile,
+  previewImage,
+  closeImage,
 }) => {
   const [showMenuFormType, setShowMenuFormType] = useState(false);
   const showMenuType = () => {
@@ -39,12 +45,6 @@ const AddProductForm = ({
   };
   const formik = useFormik({
     initialValues: {
-      maHangHoa: "",
-      tenHang: "",
-      nhomHang: "",
-      loai: "",
-      giaBan: "",
-      giaVon: "",
       maHangHoa: "",
       tenHang: "",
       nhomHang: "",
@@ -122,10 +122,6 @@ const AddProductForm = ({
               htmlFor="maHangHoa"
               className="block text-sm font-medium leading-6"
             >
-            <label
-              htmlFor="maHangHoa"
-              className="block text-sm font-medium leading-6"
-            >
               Mã hàng hóa
             </label>
 
@@ -140,10 +136,6 @@ const AddProductForm = ({
             />
           </div>
           <div>
-            <label
-              htmlFor="giaVon"
-              className="block text-sm font-medium leading-6"
-            >
             <label
               htmlFor="giaVon"
               className="block text-sm font-medium leading-6"
@@ -172,10 +164,6 @@ const AddProductForm = ({
               htmlFor="tenHang"
               className="block text-sm font-medium leading-6"
             >
-            <label
-              htmlFor="tenHang"
-              className="block text-sm font-medium leading-6"
-            >
               Tên hàng
             </label>
 
@@ -194,10 +182,6 @@ const AddProductForm = ({
             />
           </div>
           <div>
-            <label
-              htmlFor="giaBan"
-              className="block text-sm font-medium leading-6"
-            >
             <label
               htmlFor="giaBan"
               className="block text-sm font-medium leading-6"
@@ -296,10 +280,6 @@ const AddProductForm = ({
             htmlFor="cover-photo"
             className="block text-sm font-medium leading-6 mt-2"
           >
-          <label
-            htmlFor="cover-photo"
-            className="block text-sm font-medium leading-6 mt-2"
-          >
             chọn ảnh
           </label>
 
@@ -315,14 +295,7 @@ const AddProductForm = ({
                   className="relative cursor-pointer rounded-mdbg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                 >
                   <span>Upload a file</span>
-                  <input
-                    id="file-upload"
-                    name="image"
-                    type="file"
-                    accept="image/*"
-                    className="sr-only"
-                    onChange={onChangeFile}
-                  />
+                  <input id="file-upload" name="file-upload" type="file" className="sr-only" />
                 </label>
                 <p className="pl-1">or drag and drop</p>
               </div>
@@ -334,11 +307,6 @@ const AddProductForm = ({
         </div>
 
         <div className="mt-6 mb-6  flex items-center justify-end gap-x-6">
-          <button
-            type="button"
-            onClick={onHandleCloseForm}
-            className="text-sm font-semibold leading-6"
-          >
           <button
             type="button"
             onClick={onHandleCloseForm}
@@ -357,8 +325,5 @@ const AddProductForm = ({
     </form>
   );
 };
-  );
-};
 
-export default AddProductForm;
 export default AddProductForm;

@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import TypeMenuApi from "../../services/typeMenuAPI";
-const AddDishGroupForm = ({ closeMenuType, refreshToGetData, setReload }) => {
-  const [typeMenu, setTypeMenu] = useState("");
+import dishGroupApi from "../../services/dishGroupAPI.js";
+const AddForm = ({ closeMenuType }) => {
+  const [dishGroup, setDishGroup] = useState("");
   const [loading, setLoading] = useState(false);
   const onHandleChange = (e) => {
-    setTypeMenu(e.target.value);
+    setDishGroup(e.target.value);
   };
 
   const onHandleSubmit = async () => {
     try {
       setLoading(true);
-      console.log("menu", typeMenu);
-      const newTypeMenu = {
-        loaiThucDon: typeMenu,
+      console.log("group", dishGroup);
+      const newDishGroup = {
+        loaiThucDon: dishGroup,
       };
-      const response = await TypeMenuApi.create(newTypeMenu);
+      const response = await TypeMenuApi.create(newDishGroup);
       console.log(response);
       // const update = () => {
       //   reload(Math.random());
@@ -44,7 +44,7 @@ const AddDishGroupForm = ({ closeMenuType, refreshToGetData, setReload }) => {
           type="text"
           name="loaiThucDon"
           id="loaiThucDon"
-          value={typeMenu}
+          value={dishGroup}
           onChange={onHandleChange}
           autoComplete="family-name"
           className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -71,4 +71,4 @@ const AddDishGroupForm = ({ closeMenuType, refreshToGetData, setReload }) => {
   );
 };
 
-export default AddDishGroupForm;
+export default AddForm;

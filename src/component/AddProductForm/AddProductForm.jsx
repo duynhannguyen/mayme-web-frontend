@@ -1,30 +1,65 @@
-import React from 'react';
-import { PhotoIcon } from '@heroicons/react/24/solid';
-import { useFormik } from 'formik';
+import React, { useEffect, useState } from "react";
+import { PhotoIcon } from "@heroicons/react/24/solid";
+import { useFormik } from "formik";
+import AddForm from "../AddForm/AddForm";
+import TypeMenuApi from "../../services/typeMenuAPI";
 
-const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
+const AddProductForm = ({
+  onSubmitHandler,
+  onHandleCloseForm,
+  showAddProductForm,
+}) => {
+  const [showMenuFormType, setShowMenuFormType] = useState(false);
+  const showMenuType = () => {
+    setShowMenuFormType(!showMenuFormType);
+  };
+  const fetchDataTypeMenu = async () => {
+    try {
+      const responseData = await TypeMenuApi.get();
+      const getData = responseData.data;
+      console.log("Data", getData);
+
+      const typeMenuList = getData.map((typeMenu) => {
+        return <option key={typeMenu._id}> {typeMenu.loaiThucDon} </option>;
+      });
+      console.log("map", typeMenuList);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const a = fetchDataTypeMenu();
+  // useEffect(async () => {
+  //   try {
+  //     const getTypeMenu = await TypeMenuApi.get();
+  //     console.log(getTypeMenu);
+  //   } catch (error) {}
+  // }, []);
+  const closeMenuType = () => {
+    setShowMenuFormType(false);
+  };
   const formik = useFormik({
     initialValues: {
-      maHangHoa: '',
-      tenHang: '',
-      nhomHang: '',
-      loai: '',
-      giaBan: '',
-      giaVon: '',
+      maHangHoa: "",
+      tenHang: "",
+      nhomHang: "",
+      loai: "",
+      giaBan: "",
+      giaVon: "",
     },
-    onSubmit: (values) => {
-      onSubmitHandler(values)
+    onSubmit: (values, { setSubmitting }) => {
+      onSubmitHandler(values, setSubmitting);
     },
   });
 
   const { handleSubmit, handleChange } = formik;
 
-  
   return (
     <form onSubmit={handleSubmit}>
-      <div className=" bg-white px-10 on " >
+      <div className=" bg-white px-10 on ">
         <div className="border-b  mt-20">
-          <h2 className="text-base font-semibold leading-7 pt-10" >Thêm hàng hóa</h2>
+          <h2 className="text-base font-semibold leading-7 pt-10">
+            Thêm hàng hóa
+          </h2>
           <div className="flex justify-start gap-40">
             <p>Thông tin</p>
             <p>Mô tả chi tiết</p>
@@ -33,7 +68,10 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
         </div>
         <div className="grid grid-cols-3 gap-3 mt-2">
           <div className="col-span-2">
-            <label htmlFor="maHangHoa" className="block text-sm font-medium leading-6">
+            <label
+              htmlFor="maHangHoa"
+              className="block text-sm font-medium leading-6"
+            >
               Mã hàng hóa
             </label>
 
@@ -48,7 +86,10 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
             />
           </div>
           <div>
-            <label htmlFor="giaVon" className="block text-sm font-medium leading-6">
+            <label
+              htmlFor="giaVon"
+              className="block text-sm font-medium leading-6"
+            >
               Giá vốn
             </label>
 
@@ -65,7 +106,10 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
         </div>
         <div className="grid grid-cols-3 gap-3 mt-2">
           <div className="col-span-2">
-            <label htmlFor="tenHang" className="block text-sm font-medium leading-6">
+            <label
+              htmlFor="tenHang"
+              className="block text-sm font-medium leading-6"
+            >
               Tên hàng
             </label>
 
@@ -80,7 +124,10 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
             />
           </div>
           <div>
-            <label htmlFor="giaBan" className="block text-sm font-medium leading-6">
+            <label
+              htmlFor="giaBan"
+              className="block text-sm font-medium leading-6"
+            >
               Giá bán
             </label>
 
@@ -96,11 +143,25 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
           </div>
         </div>
 
-
-        <label htmlFor="loai" className="block text-sm font-medium leading-6">
-          Loại thực đơn   <button  className ="ml-2 text-green-600 text-2xl p-0 px-4">+</button>
+        <label
+          htmlFor="loai"
+          className="block text-sm font-medium leading-6 relative"
+        >
+          Loại thực đơn{" "}
+          <button
+            type="button"
+            onClick={showMenuType}
+            className="ml-2 text-green-600 text-2xl p-0 px-4"
+          >
+            +
+          </button>
+          {showMenuFormType && (
+            <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+              <AddForm closeMenuType={closeMenuType} />
+            </div>
+          )}
         </label>
-        
+
         <div className="mt-2">
           <select
             type="text"
@@ -114,13 +175,27 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
             <option>Lựa chọn</option>
             <option>Đồ ăn</option>
             <option>Thức uống</option>
-
           </select>
         </div>
 
-        <label htmlFor="nhomHang" className="block text-sm font-medium leading-6">
-          Nhóm hàng <button className =" text-green-600 text-2xl p-0 px-4 ml-5">+</button>
+        <label
+          htmlFor="nhomHang"
+          className="block text-sm font-medium leading-6"
+        >
+          Nhóm hàng{" "}
+          <button
+            type="button"
+            className=" text-green-600 text-2xl p-0 px-4 ml-5"
+            onClick={showMenuType}
+          >
+            +
+          </button>
         </label>
+        {showMenuFormType && (
+          <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <AddForm closeMenuType={closeMenuType} />
+          </div>
+        )}
         <div className="mt-2">
           <select
             type="text"
@@ -135,25 +210,34 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
             <option>1</option>
             <option>2</option>
             <option>3</option>
-
           </select>
-
         </div>
 
         <div className="sm:col-span-6">
-          <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 mt-2">
+          <label
+            htmlFor="cover-photo"
+            className="block text-sm font-medium leading-6 mt-2"
+          >
             chọn ảnh
           </label>
           <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div className="text-center">
-              <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
+              <PhotoIcon
+                className="mx-auto h-12 w-12 text-gray-300"
+                aria-hidden="true"
+              />
               <div className="mt-4 flex text-sm leading-6 text-gray-600">
                 <label
                   htmlFor="file-upload"
                   className="relative cursor-pointer rounded-mdbg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                 >
                   <span>Upload a file</span>
-                  <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                  <input
+                    id="file-upload"
+                    name="file-upload"
+                    type="file"
+                    className="sr-only"
+                  />
                 </label>
                 <p className="pl-1">or drag and drop</p>
               </div>
@@ -163,24 +247,23 @@ const AddProductForm = ({ onSubmitHandler, onHandleCloseForm }) => {
         </div>
 
         <div className="mt-6 mb-6  flex items-center justify-end gap-x-6">
-          <button type="button" onClick={onHandleCloseForm} className="text-sm font-semibold leading-6">
+          <button
+            type="button"
+            onClick={onHandleCloseForm}
+            className="text-sm font-semibold leading-6"
+          >
             Hủy
           </button>
           <button
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-
           >
             Thêm
           </button>
         </div>
-
-       
       </div>
     </form>
+  );
+};
 
-  )
-        }
-
-
-export default AddProductForm
+export default AddProductForm;

@@ -1,19 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
-import { CloseCircleOutlined } from "@ant-design/icons";
 import { useFormik } from "formik";
-import productValidationSchema from "../../validationSchema/product.validation";
-import CustomErrorMessage from "../CustomErrorMessage/CustomErrorMessage";
+import AddForm from "../AddForm/AddForm";
+import TypeMenuApi from "../../services/typeMenuAPI";
 
 const AddProductForm = ({
   onSubmitHandler,
   onHandleCloseForm,
-  onChangeFile,
-  previewImage,
-  closeImage,
+  showAddProductForm,
 }) => {
+  const [showMenuFormType, setShowMenuFormType] = useState(false);
+  const showMenuType = () => {
+    setShowMenuFormType(!showMenuFormType);
+  };
+  const fetchDataTypeMenu = async () => {
+    try {
+      const responseData = await TypeMenuApi.get();
+      const getData = responseData.data;
+      console.log("Data", getData);
+
+      const typeMenuList = getData.map((typeMenu) => {
+        return <option key={typeMenu._id}> {typeMenu.loaiThucDon} </option>;
+      });
+      console.log("map", typeMenuList);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const a = fetchDataTypeMenu();
+  // useEffect(async () => {
+  //   try {
+  //     const getTypeMenu = await TypeMenuApi.get();
+  //     console.log(getTypeMenu);
+  //   } catch (error) {}
+  // }, []);
+  const closeMenuType = () => {
+    setShowMenuFormType(false);
+  };
   const formik = useFormik({
     initialValues: {
+      maHangHoa: "",
+      tenHang: "",
+      nhomHang: "",
+      loai: "",
+      giaBan: "",
+      giaVon: "",
       maHangHoa: "",
       tenHang: "",
       nhomHang: "",
@@ -91,6 +122,10 @@ const AddProductForm = ({
               htmlFor="maHangHoa"
               className="block text-sm font-medium leading-6"
             >
+            <label
+              htmlFor="maHangHoa"
+              className="block text-sm font-medium leading-6"
+            >
               Mã hàng hóa
             </label>
 
@@ -105,6 +140,10 @@ const AddProductForm = ({
             />
           </div>
           <div>
+            <label
+              htmlFor="giaVon"
+              className="block text-sm font-medium leading-6"
+            >
             <label
               htmlFor="giaVon"
               className="block text-sm font-medium leading-6"
@@ -133,6 +172,10 @@ const AddProductForm = ({
               htmlFor="tenHang"
               className="block text-sm font-medium leading-6"
             >
+            <label
+              htmlFor="tenHang"
+              className="block text-sm font-medium leading-6"
+            >
               Tên hàng
             </label>
 
@@ -151,6 +194,10 @@ const AddProductForm = ({
             />
           </div>
           <div>
+            <label
+              htmlFor="giaBan"
+              className="block text-sm font-medium leading-6"
+            >
             <label
               htmlFor="giaBan"
               className="block text-sm font-medium leading-6"
@@ -174,9 +221,25 @@ const AddProductForm = ({
           </div>
         </div>
 
-        <label htmlFor="loai" className="block text-sm font-medium leading-6">
-          Loại thực đơn
+        <label
+          htmlFor="loai"
+          className="block text-sm font-medium leading-6 relative"
+        >
+          Loại thực đơn{" "}
+          <button
+            type="button"
+            onClick={showMenuType}
+            className="ml-2 text-green-600 text-2xl p-0 px-4"
+          >
+            +
+          </button>
+          {showMenuFormType && (
+            <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+              <AddForm closeMenuType={closeMenuType} />
+            </div>
+          )}
         </label>
+
         <div className="mt-2">
           <select
             type="text"
@@ -197,8 +260,20 @@ const AddProductForm = ({
           htmlFor="nhomHang"
           className="block text-sm font-medium leading-6"
         >
-          Nhóm hàng
+          Nhóm hàng{" "}
+          <button
+            type="button"
+            className=" text-green-600 text-2xl p-0 px-4 ml-5"
+            onClick={showMenuType}
+          >
+            +
+          </button>
         </label>
+        {showMenuFormType && (
+          <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <AddForm closeMenuType={closeMenuType} />
+          </div>
+        )}
         <div className="mt-2">
           <select
             type="text"
@@ -217,6 +292,10 @@ const AddProductForm = ({
         </div>
 
         <div className="sm:col-span-6">
+          <label
+            htmlFor="cover-photo"
+            className="block text-sm font-medium leading-6 mt-2"
+          >
           <label
             htmlFor="cover-photo"
             className="block text-sm font-medium leading-6 mt-2"
@@ -260,6 +339,11 @@ const AddProductForm = ({
             onClick={onHandleCloseForm}
             className="text-sm font-semibold leading-6"
           >
+          <button
+            type="button"
+            onClick={onHandleCloseForm}
+            className="text-sm font-semibold leading-6"
+          >
             Hủy
           </button>
           <button
@@ -273,5 +357,8 @@ const AddProductForm = ({
     </form>
   );
 };
+  );
+};
 
+export default AddProductForm;
 export default AddProductForm;

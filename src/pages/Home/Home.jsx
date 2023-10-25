@@ -8,6 +8,7 @@ import AddProductForm from '../../component/AddProductForm/AddProductForm';
 const Home = () => {
     return (
         <>
+        
             <SectionHero />
             <WhyChoose/>
             <SafeSolution/>

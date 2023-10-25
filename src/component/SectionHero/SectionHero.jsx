@@ -26,7 +26,7 @@ const SectionHero = () => {
           >
             <span>phần mềm</span>
             <br />
-            <span className="dark:text-violet-400">quản lý bán hàng</span>
+            <span >quản lý bán hàng</span>
             <br />
             <span>phổ biến nhất</span>
           </motion.h1>
@@ -40,7 +40,7 @@ const SectionHero = () => {
             <a
               rel="noopener noreferrer"
               href="#"
-              className="px-8 py-3 text-lg font-semibold dark:bg-violet-400 dark:text-gray-900 rounded-full"
+              className="px-8 py-3 text-lg font-semibold dark:text-gray-900 rounded-full"
             >
               Dùng thử miễn phí
             </a>

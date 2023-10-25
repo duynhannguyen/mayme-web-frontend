@@ -8,6 +8,7 @@ import axios from "axios";
 import AddProductForm from "../../component/AddProductForm/AddProductForm.jsx";
 import ProductAPI from "../../services/productAPI.js";
 import { Formik } from "formik";
+
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -111,11 +112,9 @@ const MainPage = () => {
       </div>
 
       {showAddProductForm && (
-        <div
-          className=" fixed min-h-screen top-,0 left-0 right-0 bottom-0 flex items-center justify-center  bg-opacity-40 bg-gray-400	"
-          style={{ zIndex: 9999 }}
-        >
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
           <AddProductForm
+            showAddProductForm={showAddProductForm}
             onSubmitHandler={handleSubmit}
             onHandleCloseForm={onHandleCloseForm}
             onChangeFile={handleFileChange}

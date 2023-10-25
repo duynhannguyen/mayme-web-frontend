@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { UserOutlined, LoginOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/Auth/authSlice.js";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineUser } from "react-icons/ai";
-import axios from "axios";
-import AddProductForm from "../../component/AddProductForm/AddProductForm.jsx";
-import ProductAPI from "../../services/productAPI.js";
-import { Formik } from "formik";
+import React, { useState } from 'react';
+import { UserOutlined, LoginOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/Auth/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineUser } from 'react-icons/ai';
+import axios from 'axios';
+import AddProductForm from '../../component/AddProductForm/AddProductForm.jsx';
+import ProductAPI from '../../services/productAPI.js';
 
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
@@ -18,23 +17,26 @@ const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.currentUser);
+
   const onHandleLogout = () => {
     dispatch(logout());
-    navigate("/");
+    navigate('/');
   };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setPreviewImage(URL.createObjectURL(file));
     setSelectedFile(file);
   };
+
   const handleSubmit = async (values) => {
     try {
       setUploading(true);
       setError(null);
 
       const formData = new FormData();
-      formData.append("image", selectedFile);
-      formData.append("body", JSON.stringify(values));
+      formData.append('image', selectedFile);
+      formData.append('body', JSON.stringify(values));
 
       const response = await ProductAPI.create(formData);
       setShowAddProductForm(false);
@@ -45,69 +47,50 @@ const MainPage = () => {
       setUploading(false);
     }
   };
+
   const onHandleCloseForm = () => {
     setShowAddProductForm(false);
     setPreviewImage(null);
   };
+
   const cancelPreviewImage = () => {
     setPreviewImage(null);
   };
+
   const handleButtonClick = () => {
     setShowAddProductForm(true);
   };
-  return (
-    <div className="flex flex-col items-center  min-h-screen">
-      <div className="flex justify-between items-center mb-4 container mx-auto px-4 py-2">
-        <h1 className="text-4xl font-bold text-yellow-700">Mayme</h1>
-        <div className=" border-2 border-yellow-700 w-auto p-4 rounded-2xl flex items-center hover:bg-amber-700 transition-all duration-300 relative group cursor-default justify-center text-lg ">
-          <div className="text-right mr-2">{currentUser.tenNhaHang}</div>
-          <UserOutlined />
-          <ul className="p-2 w-[150px] h-auto rounded-md opacity-0  group-hover:opacity-100 transition-all duration-300  absolute -bottom-[90%] z-10 text-black text-[13px] bg-white">
-            <li
-              onClick={onHandleLogout}
-              className="flex justify-center gap-2 items-center cursor-pointer "
-            >
-              <span> Đăng xuất </span>
-              <LoginOutlined />
-            </li>
-          </ul>
-        </div>
-      </div>
 
-      {/* <div class="relative group">
-        <div class="w-32 h-32 bg-gray-200 hover:bg-gray-300 transition-all duration-300"></div>
-        <ul class="opacity-0 group-hover:opacity-100 absolute top-full left-0 bg-white border border-gray-300 py-2 px-4 shadow z-10 transition-opacity duration-300">
-          <li>Item 1</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
-        </ul>
-      </div> */}
-      {/* <div class="relative group">
-        <div class="w-32 h-32 bg-gray-200 hover:bg-gray-300 transition-all duration-300"></div>
-        <ul class="opacity-100 group-hover:opacity-0 absolute top-full left-0 bg-white border border-gray-300 py-2 px-4 shadow z-10 transition-opacity duration-1000">
-          <li>Item 1</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
-        </ul>
-      </div> */}
+  return (
+    <div className="flex flex-col items-center min-h-screen bg-gray-100">
+      <header className="container mx-auto px-4 py-2 bg-white shadow-md">
+        <div className="flex justify-between items-center">
+          <h1 className="text-4xl font-bold text-yellow-700">Mayme</h1>
+          <div className="flex items-center">
+            <div className="mr-2 text-gray-700">+84 9325374829</div>
+            <AiOutlineUser className="text-gray-700" />
+          </div>
+        </div>
+      </header>
 
       <div className="container mx-auto px-8 py-4">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">Hàng Hoá</h1>
           <button
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded"
             onClick={handleButtonClick}
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded"
           >
             + Thêm Mới
           </button>
         </div>
-        <div className="grid grid-cols-6 text-amber-300 border-2 border-sky-200 gap-4 bg-blue-400">
-          <div className="col-span-1 p-2  border-transparent">Mã Hàng Hoá</div>
-          <div className="col-span-1 p-2  border-transparent">Tên Hàng</div>
-          <div className="col-span-1 p-2  border-transparent">Nhóm Hàng</div>
-          <div className="col-span-1 p-2  border-transparent">Loại</div>
-          <div className="col-span-1 p-2  border-transparent">Giá Bán</div>
-          <div className="col-span-1 p-2  border-transparent">Giá Vốn</div>
+
+        <div className="grid grid-cols-6 gap-4 bg-white border border-gray-200 shadow-md rounded-lg">
+<div className="col-span-1 p-2 mb-2 border-b border-gray-200 font-semibold text-gray-700">Mã Hàng Hoá</div>
+          <div className="col-span-1 p-2 mb-2 border-b border-gray-200 font-semibold text-gray-700">Tên Hàng</div>
+          <div className="col-span-1 p-2 mb-2 border-b border-gray-200 font-semibold text-gray-700">Nhóm Hàng</div>
+          <div className="col-span-1 p-2 mb-2 border-b border-gray-200 font-semibold text-gray-700">Loại</div>
+          <div className="col-span-1 p-2 mb-2 border-b border-gray-200 font-semibold text-gray-700">Giá Bán</div>
+          <div className="col-span-1 p-2 mb-2 border-b border-gray-200 font-semibold text-gray-700">Giá Vốn</div>
         </div>
       </div>
 
@@ -118,10 +101,23 @@ const MainPage = () => {
             onSubmitHandler={handleSubmit}
             onHandleCloseForm={onHandleCloseForm}
             onChangeFile={handleFileChange}
-            previewImage={previewImage}
-            closeImage={cancelPreviewImage}
+           className="bg-white rounded-lg shadow-md p-4"
           />
         </div>
+      )}
+
+      {previewImage && (
+        
+          <div className="relative">
+            <button
+              onClick={cancelPreviewImage}
+              className="absolute top-0 right-0   text-gray-700 hover:bg-gray-200"
+            >
+              X
+            </button>
+            <img src={previewImage} alt="Preview" className="  w-full h-auto max-w-full max-h-64 object-contain " />
+          </div>
+       
       )}
     </div>
   );

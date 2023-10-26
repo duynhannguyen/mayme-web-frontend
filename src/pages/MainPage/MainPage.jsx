@@ -1,27 +1,31 @@
 import React, { useState } from "react";
-import React, { useState } from "react";
 import { UserOutlined, LoginOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/Auth/authSlice.js";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineUser } from "react-icons/ai";
-import axios from "axios";
 import AddProductForm from "../../component/AddProductForm/AddProductForm.jsx";
 import ProductAPI from "../../services/productAPI.js";
-import { Formik } from "formik";
 
 import MenuItem from "../MenuItem/MenuItem.jsx";
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const [isMenuItemVisible, setIsMenuItemVisible] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [getMenuItemList, setGetMenuItemList] = useState([]);
+  // const fetchMenuItem = async () => {
+  //   try {
+  //   } catch (error) {}
+  // };
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
   const onHandleLogout = () => {
     dispatch(logout());
     navigate("/");
+  };
+  const handleClick = () => {
+    setIsMenuItemVisible(!isMenuItemVisible);
   };
   const handleFileChange = (e) => {
     const file = e.target.files[0];

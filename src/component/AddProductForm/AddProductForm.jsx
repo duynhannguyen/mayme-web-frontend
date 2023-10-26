@@ -3,10 +3,11 @@ import { PhotoIcon } from "@heroicons/react/24/solid";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { useFormik } from "formik";
 import AddForm from "../AddForm/AddForm";
+import AddDishGroupForm from "../AddForm/AddForm.jsx";
 import TypeMenuApi from "../../services/typeMenuAPI";
 import productValidationSchema from "../../validationSchema/product.validation.js";
 import CustomErrorMessage from "../CustomErrorMessage/CustomErrorMessage.jsx";
-
+import dishGroupApi from "../../services/dishGroupAPI";
 const AddProductForm = ({
   onSubmitHandler,
   onHandleCloseForm,
@@ -16,30 +17,37 @@ const AddProductForm = ({
   closeImage,
 }) => {
   const [showMenuFormType, setShowMenuFormType] = useState(false);
+  const [typeMenuList, setTypeMenuList] = useState([]);
+  const [dishGroupList, setDishGroupList] = useState([]);
+  const [reload, setReload] = useState(null);
   const showMenuType = () => {
     setShowMenuFormType(!showMenuFormType);
   };
-  const fetchDataTypeMenu = async () => {
+  const refreshToGetData = () => {
+    setReload(Math.random());
+  };
+  const fetchData = async () => {
     try {
-      const responseData = await TypeMenuApi.get();
-      const getData = responseData.data;
-      console.log("Data", getData);
+      const responseDataTypeMenu = await TypeMenuApi.get();
+      setTypeMenuList(responseDataTypeMenu.data);
+      const responseDataDishGroup = await dishGroupApi.get();
+      setDishGroupList(responseDataDishGroup.data);
 
-      const typeMenuList = getData.map((typeMenu) => {
-        return <option key={typeMenu._id}> {typeMenu.loaiThucDon} </option>;
-      });
-      console.log("map", typeMenuList);
+      // const getData = responseData.data;
+      // console.log("Data", getData);
+
+      // const typeMenuList = getData.map((typeMenu) => {
+      //   return <option key={typeMenu._id}> {typeMenu.loaiThucDon} </option>;
+      // });
+      // console.log("map", typeMenuList);
     } catch (error) {
       console.error(error);
     }
   };
-  const a = fetchDataTypeMenu();
-  // useEffect(async () => {
-  //   try {
-  //     const getTypeMenu = await TypeMenuApi.get();
-  //     console.log(getTypeMenu);
-  //   } catch (error) {}
-  // }, []);
+  // const a = fetchDataTypeMenu();
+  useEffect(() => {
+    fetchData();
+  }, [reload]);
   const closeMenuType = () => {
     setShowMenuFormType(false);
   };
@@ -219,7 +227,11 @@ const AddProductForm = ({
           </button>
           {showMenuFormType && (
             <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <AddForm closeMenuType={closeMenuType} />
+              <AddForm
+                refreshToGetData={refreshToGetData}
+                closeMenuType={closeMenuType}
+                setReload={setReload}
+              />
             </div>
           )}
         </label>
@@ -235,8 +247,11 @@ const AddProductForm = ({
             className="  block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
             <option>Lựa chọn</option>
-            <option>Đồ ăn</option>
-            <option>Thức uống</option>
+            {typeMenuList.map((typeMenu) => {
+              return (
+                <option key={typeMenu._id}> {typeMenu.loaiThucDon} </option>
+              );
+            })}
           </select>
         </div>
 
@@ -255,7 +270,7 @@ const AddProductForm = ({
         </label>
         {showMenuFormType && (
           <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-            <AddForm closeMenuType={closeMenuType} />
+            <AddDishGroupForm closeMenuType={closeMenuType} />
           </div>
         )}
         <div className="mt-2">
@@ -269,9 +284,12 @@ const AddProductForm = ({
             className="  block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
             <option>Lựa chọn</option>
-            <option>1</option>
+            {dishGroupList.map((group) => {
+              return <option key={group._id}> {group.nhomHang}</option>;
+            })}
+            {/* <option>1</option>
             <option>2</option>
-            <option>3</option>
+            <option>3</option> */}
           </select>
         </div>
 

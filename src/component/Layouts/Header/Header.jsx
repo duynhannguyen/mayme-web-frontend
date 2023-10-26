@@ -6,9 +6,9 @@ const Header = () => {
   const showUser = (
     <>
       <Link to={"/mainpage"} className="cursor-pointer">
-        <div className="text-yellow-600 text-lg">
+        <div className=" text-lg">
           <span className="dark:text-violet-400">Hello </span>
-          {currentUser.tenNhaHang}{" "}
+          <span className="text-yellow-600">{currentUser.tenNhaHang}</span>
         </div>
       </Link>
     </>

@@ -3,7 +3,7 @@ import { UserOutlined, LoginOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/Auth/authSlice.js";
 import { useNavigate } from "react-router-dom";
-
+import MenuItem from "../MenuItem/MenuItem.jsx";
 const MainPage = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -17,8 +17,7 @@ const MainPage = () => {
   };
 
   const handleClick = () => {
-    setIsMenuItemVisible(!isMenuItemVisible);
-    navigate("/menuitem"); // Chuyển hướng đến trang menuitem khi nhấn nút "Mở"
+    setIsMenuItemVisible(!isMenuItemVisible); // Chuyển hướng đến trang menuitem khi nhấn nút "Mở"
   };
   return (
     <div>
@@ -71,16 +70,16 @@ const MainPage = () => {
           <div className="col-span-1 p-2  border-transparent">Giá Bán</div>
           <div className="col-span-1 p-2  border-transparent">Giá Vốn</div>
         </div>
-        <div className="ml-2 flex justify-between items-center mb-4 bg-green-100">
-          <div className="text-xs font-bold mr-2">SP00003</div>
-          <div className="mr-2">Cafe</div>
-          <div className="mr-2">Đồ ăn</div>
-          <div className="mr-2">0</div>
-          <div className="mr-2">0</div>
-          <div className="mr-2">0</div>
-          <button className="bg-green-400" onClick={handleClick}>
-            Mở
-          </button>
+        <div onClick={handleClick} className="border-2 border-green-500">
+          <div className=" flex  justify-between items-center cursor-pointer bg-green-100">
+            <div className="text-xs font-bold mr-2">SP00003</div>
+            <div className="mr-2">Cafe</div>
+            <div className="mr-2">Đồ ăn</div>
+            <div className="mr-2">0</div>
+            <div className="mr-2">0</div>
+            <div className="mr-2">0</div>
+          </div>
+          {isMenuItemVisible && <MenuItem />}
         </div>
       </div>
     </div>

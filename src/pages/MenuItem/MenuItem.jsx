@@ -2,17 +2,17 @@ import React from "react";
 
 const MenuItem = () => {
   return (
-    <div className="p-8">
-      <div className="border border-green-500">
+    <div className="">
+      <div className="">
         <div className="container mx-auto px-8 py-4 bg-green-100">
-          <div className="ml-2 flex justify-between items-center mb-4">
+          {/* <div className="ml-2 flex justify-between items-center mb-4">
             <div className="text-xs font-bold mr-2">SP00003</div>
             <div className="mr-2">Cafe</div>
             <div className="mr-2">Đồ ăn</div>
             <div className="mr-2">0</div>
             <div className="mr-2">0</div>
             <div className="mr-2">0</div>
-          </div>
+          </div> */}
           <div className=" flex justify-start gap-10 ">
             <div className="mr-2 text-green-700">Thông tin</div>
             <div className="mr-2">Thẻ kho</div>

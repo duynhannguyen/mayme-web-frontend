@@ -18,6 +18,7 @@ import { TOKEN_TYPES } from "./constant/constant";
 import AuthApi from "./services/authAPI";
 import { login } from "./redux/Auth/authSlice";
 import Menu2 from "./pages/Menu2/Menu2";
+import Order from "./pages/Order/Order";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ function App() {
         <Route path="menuitem" element={<MenuItem />} />
         <Route path="menu" element={<Menu />} />
         <Route path="menu2" element={<Menu2 />} />
+        <Route path="order" element={<Order />} />
       </Routes>
     </Router>
   );

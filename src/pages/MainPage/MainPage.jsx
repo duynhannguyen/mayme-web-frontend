@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import React, { useState } from "react";
 import { UserOutlined, LoginOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/Auth/authSlice.js";
@@ -9,6 +10,7 @@ import AddProductForm from "../../component/AddProductForm/AddProductForm.jsx";
 import ProductAPI from "../../services/productAPI.js";
 import { Formik } from "formik";
 
+import MenuItem from "../MenuItem/MenuItem.jsx";
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,7 +18,6 @@ const MainPage = () => {
   const [uploading, setUploading] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.currentUser);
   const onHandleLogout = () => {
     dispatch(logout());
@@ -108,6 +109,17 @@ const MainPage = () => {
           <div className="col-span-1 p-2  border-transparent">Loại</div>
           <div className="col-span-1 p-2  border-transparent">Giá Bán</div>
           <div className="col-span-1 p-2  border-transparent">Giá Vốn</div>
+        </div>
+        <div onClick={handleClick} className="border-2 border-green-500">
+          <div className=" flex  justify-between items-center cursor-pointer bg-green-100">
+            <div className="text-xs font-bold mr-2">SP00003</div>
+            <div className="mr-2">Cafe</div>
+            <div className="mr-2">Đồ ăn</div>
+            <div className="mr-2">0</div>
+            <div className="mr-2">0</div>
+            <div className="mr-2">0</div>
+          </div>
+          {isMenuItemVisible && <MenuItem />}
         </div>
       </div>
 

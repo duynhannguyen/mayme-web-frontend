@@ -106,25 +106,50 @@ const MainPage = () => {
             + Thêm Mới
           </button>
         </div>
-        <div className="grid grid-cols-6 text-amber-300 border-2 border-sky-200 gap-4 bg-blue-400">
-          <div className="col-span-1 p-2  border-transparent">Mã Hàng Hoá</div>
-          <div className="col-span-1 p-2  border-transparent">Tên Hàng</div>
-          <div className="col-span-1 p-2  border-transparent">Nhóm Hàng</div>
-          <div className="col-span-1 p-2  border-transparent">Loại</div>
-          <div className="col-span-1 p-2  border-transparent">Giá Bán</div>
-          <div className="col-span-1 p-2  border-transparent">Giá Vốn</div>
-        </div>
-        <div onClick={handleClick} className="border-2 border-green-500">
-          <div className=" flex  justify-between items-center cursor-pointer bg-green-100">
-            <div className="text-xs font-bold mr-2">SP00003</div>
-            <div className="mr-2">Cafe</div>
-            <div className="mr-2">Đồ ăn</div>
-            <div className="mr-2">0</div>
-            <div className="mr-2">0</div>
-            <div className="mr-2">0</div>
-          </div>
-          {isMenuItemVisible && <MenuItem />}
-        </div>
+        <table className="w-full border-collapse border border-green-500">
+          <thead>
+            <tr className="bg-green-100">
+              <th className="p-2 border border-green-500">Mã Hàng Hoá</th>
+              <th className="p-2 border border-green-500">Tên Hàng</th>
+              <th className="p-2 border border-green-500">Nhóm Hàng</th>
+              <th className="p-2 border border-green-500">Loại</th>
+              <th className="p-2 border border-green-500">Giá Bán</th>
+              <th className="p-2 border border-green-500">Giá Vốn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              className={`cursor-pointer ${isMenuItemVisible ? "mb-4" : ""}`}
+              onClick={handleClick}
+            >
+              <td className="p-2 border border-green-500 text-center align-middle">
+                SP00003
+              </td>
+              <td className="p-2 border border-green-500 text-center align-middle">
+                Cafe
+              </td>
+              <td className="p-2 border border-green-500 text-center align-middle">
+                Đồ ăn
+              </td>
+              <td className="p-2 border border-green-500 text-center align-middle">
+                0
+              </td>
+              <td className="p-2 border border-green-500 text-center align-middle">
+                0
+              </td>
+              <td className="p-2 border border-green-500 text-center align-middle">
+                0
+              </td>
+            </tr>
+            {isMenuItemVisible && (
+              <tr>
+                <td colSpan="6">
+                  <MenuItem />
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       {showAddProductForm && (

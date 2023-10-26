@@ -20,6 +20,33 @@ const AddProductForm = ({
   const [typeMenuList, setTypeMenuList] = useState([]);
   const [dishGroupList, setDishGroupList] = useState([]);
   const [reload, setReload] = useState(null);
+  const [giaBan, setGiaBan] = useState('');
+  const [giaVon, setGiaVon] = useState('');
+
+  const handleChangeOn1 = (event) => {
+    const value = event.target.value;
+    const formattedValue = formatCurrency(value);
+    setGiaVon(formattedValue);
+  };
+
+  const handleChangeOn = (event) => {
+    const value = event.target.value;
+    const formattedValue = formatCurrency(value);
+    setGiaBan(formattedValue);
+  };
+
+  const formatCurrency = (value) => {
+    const number = parseInt(value.replace(/\D/g, ''), 10);
+    if (isNaN(number)) return '';
+
+    const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+      minimumFractionDigits: 0,
+    });
+
+    return formatter.format(number);
+  };
   const showMenuType = () => {
     setShowMenuFormType(!showMenuFormType);
   };
@@ -77,6 +104,7 @@ const AddProductForm = ({
         onClick={closeImage}
       />
     </div>
+    
   );
 
   const uploadDishImage = (
@@ -144,27 +172,24 @@ const AddProductForm = ({
             />
           </div>
           <div>
-            <label
-              htmlFor="giaVon"
-              className="block text-sm font-medium leading-6"
-            >
-              Giá vốn
-            </label>
+      <label htmlFor="giaVon" className="block text-sm font-medium leading-6">
+        Giá vốn
+      </label>
 
-            <input
-              type="text"
-              name="giaVon"
-              id="giaVon"
-              // value={formik.values.giaVon}
-              onChange={handleChange}
-              autoComplete="family-name"
-              className={
-                errors.giaVon
-                  ? "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  : "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              }
-            />
-          </div>
+      <input
+        type="text"
+        name="giaVon"
+        id="giaVon"
+        value={giaVon}
+        onChange={handleChangeOn1}
+        autoComplete="off"
+        className={
+          errors.giaVon
+            ? 'block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+            : 'block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+        }
+      />
+    </div>
         </div>
         <div className="grid grid-cols-3 gap-3 mt-2">
           <div className="col-span-2">
@@ -190,27 +215,24 @@ const AddProductForm = ({
             />
           </div>
           <div>
-            <label
-              htmlFor="giaBan"
-              className="block text-sm font-medium leading-6"
-            >
-              Giá bán
-            </label>
+      <label htmlFor="giaBan" className="block text-sm font-medium leading-6">
+        Giá bán
+      </label>
 
-            <input
-              type="text"
-              name="giaBan"
-              id="giaBan"
-              // value={formik.values.giaBan}
-              onChange={handleChange}
-              autoComplete="family-name"
-              className={
-                errors.giaBan
-                  ? "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  : "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              }
-            />
-          </div>
+      <input
+        type="text"
+        name="giaBan"
+        id="giaBan"
+        value={giaBan}
+        onChange={handleChangeOn}
+        autoComplete="off"
+        className={
+          errors.giaBan
+            ? 'block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+            : 'block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+        }
+      />
+    </div>
         </div>
 
         <label

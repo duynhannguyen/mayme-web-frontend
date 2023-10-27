@@ -1,6 +1,15 @@
 import React from "react";
 
-const MenuItem = () => {
+const MenuItem = ({
+  _id,
+  maHangHoa,
+  tenHang,
+  nhomHang,
+  loai,
+  giaBan,
+  giaVon,
+  hinhAnh,
+}) => {
   return (
     <div className="">
       <div className="">
@@ -20,22 +29,24 @@ const MenuItem = () => {
             <div className="mr-2">Món thêm</div>
           </div>
         </div>
-        <div className="px-8 py-4 text-2xl text-yellow-700">Cafe</div>
+        <div className="px-8 py-4 text-2xl text-yellow-700" id={_id}>
+          {tenHang}
+        </div>
         <div className="  flex  items-center px-8   gap-20  ">
           <div className="w-[350px] h-[350px] object-cover">
             <img
-              src="https://bepvang.org.vn/Userfiles/Upload/images/Download/2016/8/4/a94990116a6b48668ac78d90d6cfdd71.jpg"
+              src={hinhAnh}
               alt="product"
               className="w-full h-full object-cover rounded-bl-3xl rounded-br-3xl rounded-tr-3xl rounded-tl-3xl"
             />
           </div>
 
           <div>
-            <div className="bigger-text ">Mã hàng hoá: SP00003</div>
-            <div className="bigger-text mt-5">Loại thực đơn: Đồ ăn</div>
-            <div className="bigger-text mt-5">Nhóm hàng: Cafe</div>
-            <div className="bigger-text mt-5 ">Loại hàng: Hàng hoá</div>
-            <div className="bigger-text mt-5 ">Giá bán: 0</div>
+            <div className="bigger-text ">Mã hàng hoá: {maHangHoa}</div>
+            <div className="bigger-text mt-5">Loại thực đơn: {loai}</div>
+            <div className="bigger-text mt-5">Nhóm hàng: {nhomHang}</div>
+            {/* <div className="bigger-text mt-5 ">Loại hàng: Hàng hoá</div> */}
+            <div className="bigger-text mt-5 ">Giá bán: {giaBan}</div>
           </div>
         </div>
         <div className="flex items-center justify-end mt-10 py-2 px-4 gap-2">

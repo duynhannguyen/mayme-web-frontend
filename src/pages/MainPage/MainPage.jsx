@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UserOutlined, LoginOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/Auth/authSlice.js";
@@ -6,18 +6,29 @@ import AddProductForm from "../../component/AddProductForm/AddProductForm.jsx";
 import ProductAPI from "../../services/productAPI.js";
 
 import MenuItem from "../MenuItem/MenuItem.jsx";
+import MenuRow from "../../component/MenuRow/MenuRow.jsx";
+import MenuListItem from "../../component/MenuListItem/MenuListItem.jsx";
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [isMenuItemVisible, setIsMenuItemVisible] = useState(false);
+  const [reload, setReload] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
-  const [getMenuItemList, setGetMenuItemList] = useState([]);
-  // const fetchMenuItem = async () => {
-  //   try {
-  //   } catch (error) {}
-  // };
+  const [getMenuListItem, setGetMenuListItem] = useState([]);
+  useEffect(() => {
+    fetchMenuItem();
+  }, [reload]);
+  const fetchMenuItem = async () => {
+    try {
+      const fetchItem = await ProductAPI.get();
+      console.log(fetchItem.data);
+      setGetMenuListItem(fetchItem.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
   const onHandleLogout = () => {
@@ -44,6 +55,7 @@ const MainPage = () => {
       const response = await ProductAPI.create(formData);
       setShowAddProductForm(false);
       setPreviewImage(null);
+      setReload(Math.random());
     } catch (error) {
       console.error(error);
     } finally {
@@ -114,17 +126,15 @@ const MainPage = () => {
           <div className="col-span-1 p-2  border-transparent">Giá Bán</div>
           <div className="col-span-1 p-2  border-transparent">Giá Vốn</div>
         </div>
-        <div onClick={handleClick} className="border-2 border-green-500">
-          <div className=" flex  justify-between items-center cursor-pointer bg-green-100">
-            <div className="text-xs font-bold mr-2">SP00003</div>
-            <div className="mr-2">Cafe</div>
-            <div className="mr-2">Đồ ăn</div>
-            <div className="mr-2">0</div>
-            <div className="mr-2">0</div>
-            <div className="mr-2">0</div>
-          </div>
-          {isMenuItemVisible && <MenuItem />}
-        </div>
+        <MenuListItem
+          getMenuListItem={getMenuListItem}
+          isMenuItemVisible={isMenuItemVisible}
+          handleClick={handleClick}
+        />
+        {/* <MenuRow
+          isMenuItemVisible={isMenuItemVisible}
+          handleClick={handleClick}
+        /> */}
       </div>
 
       {showAddProductForm && (

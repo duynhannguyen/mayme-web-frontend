@@ -66,9 +66,9 @@ const AddProductForm = ({
     validationSchema: productValidationSchema.addProduct,
   });
   const previewDishImage = (
-    <div className="w-[500px] h-[300px] relative">
+    <div className="w-[500px] h-[300px]  relative">
       <img
-        className="w-full h-full"
+        className="w-full h-full object-contain"
         src={previewImage}
         alt="Preview dish image"
       />

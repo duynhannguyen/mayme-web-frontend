@@ -33,7 +33,6 @@ function App() {
         const payload = {
           user: currentUserData,
         };
-        console.log(currentUserData);
         dispatch(login(payload));
       } catch (error) {
         console.log("fetch-current-user-failed:", error);

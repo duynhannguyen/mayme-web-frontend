@@ -8,13 +8,14 @@ import TypeMenuApi from "../../services/typeMenuAPI";
 import productValidationSchema from "../../validationSchema/product.validation.js";
 import CustomErrorMessage from "../CustomErrorMessage/CustomErrorMessage.jsx";
 import dishGroupApi from "../../services/dishGroupAPI";
+import Loading from "../Loading/Loading";
 const AddProductForm = ({
   onSubmitHandler,
   onHandleCloseForm,
-  showAddProductForm,
   onChangeFile,
   previewImage,
   closeImage,
+  uploading,
 }) => {
   const [showMenuFormType, setShowMenuFormType] = useState(false);
   const [typeMenuList, setTypeMenuList] = useState([]);
@@ -109,7 +110,8 @@ const AddProductForm = ({
 
   return (
     <form className="bg-white px-10 pt-6" onSubmit={handleSubmit}>
-      <div className="   ">
+      {uploading && <Loading />}
+      <div>
         <div className="border-b ">
           <h2 className="text-base font-semibold leading-7">Thêm hàng hóa</h2>
           {errors && (

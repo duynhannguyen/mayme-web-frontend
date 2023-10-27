@@ -100,7 +100,7 @@ const LoginPage = () => {
                 type={"password"}
                 showPassword={showPassword}
                 // value={showToggleIcon}
-                setShowToggleIcon={setShowToggleIcon}
+                // setShowToggleIcon={setShowToggleIcon}
                 handleChange={handleChange}
               />
               <Button type="submit" name={"Đăng nhập"} />

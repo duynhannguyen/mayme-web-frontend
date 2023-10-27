@@ -1,7 +1,6 @@
 import "./index.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SiteLayout from "./component/Layouts/SiteLayout/SiteLayout";
 

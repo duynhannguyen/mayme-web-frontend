@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/Auth/authSlice.js";
 import AddProductForm from "../../component/AddProductForm/AddProductForm.jsx";
 import ProductAPI from "../../services/productAPI.js";
+import { useNavigate } from "react-router-dom";
 import MenuListItem from "../../component/MenuListItem/MenuListItem.jsx";
 import Loading from "../../component/Loading/Loading.jsx";
-import { useNavigate } from "react-router-dom";
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [isMenuItemVisible, setIsMenuItemVisible] = useState(false);
@@ -78,6 +78,12 @@ const MainPage = () => {
   const handleButtonClick = () => {
     setShowAddProductForm(true);
   };
+
+  const handleMenuButtonClick = () => {
+    // Navigate to the ListMenu page
+    navigate("/listmenu");
+  };
+
   return (
     <div className="flex flex-col items-center  min-h-screen">
       <div className="flex justify-between items-center mb-4 container mx-auto px-4 py-2">

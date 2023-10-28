@@ -19,6 +19,7 @@ import AuthApi from "./services/authAPI";
 import { login } from "./redux/Auth/authSlice";
 import Menu2 from "./pages/Menu2/Menu2";
 import Order from "./pages/Order/Order";
+import ListMenu from "./pages/ListMenu/ListMenu.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ function App() {
         <Route path="menu" element={<Menu />} />
         <Route path="menu2" element={<Menu2 />} />
         <Route path="order" element={<Order />} />
+        <Route path="listmenu" element={<ListMenu />} />
       </Routes>
     </Router>
   );

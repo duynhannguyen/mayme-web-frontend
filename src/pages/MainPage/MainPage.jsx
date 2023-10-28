@@ -113,15 +113,15 @@ const MainPage = () => {
             + Thêm Mới
           </button>
         </div>
-        <div className="grid grid-cols-6 text-amber-300 border-2 border-sky-200 gap-4 bg-blue-400">
+        {/* <div className="grid grid-cols-6 text-amber-300 border-2 border-sky-200 gap-4 bg-blue-400">
           <div className="col-span-1 p-2  border-transparent">Mã Hàng Hoá</div>
           <div className="col-span-1 p-2  border-transparent">Tên Hàng</div>
           <div className="col-span-1 p-2  border-transparent">Nhóm Hàng</div>
           <div className="col-span-1 p-2  border-transparent">Loại</div>
           <div className="col-span-1 p-2  border-transparent">Giá Bán</div>
           <div className="col-span-1 p-2  border-transparent">Giá Vốn</div>
-        </div>
-        {uploading && <Loading />}
+        </div> */}
+        {/* {uploading && <Loading />}
         {getMenuListItem ? (
           <MenuListItem
             getMenuListItem={getMenuListItem}
@@ -135,7 +135,54 @@ const MainPage = () => {
               <p>Bạn chưa có sản phẩm nào</p>
             </div>
           </div>
-        )}
+        )} */}
+        <table className="w-full shadow-[0px_3px_8px_rgba(0,0,0,0.24)] border-collapse border border-green-500">
+          <thead>
+            <tr className="bg-green-100">
+              <th className="p-2 border border-green-500">Mã Hàng Hoá</th>
+              <th className="p-2 border border-green-500">Tên Hàng</th>
+              <th className="p-2 border border-green-500">Nhóm Hàng</th>
+              <th className="p-2 border border-green-500">Loại</th>
+              <th className="p-2 border border-green-500">Giá Bán</th>
+              <th className="p-2 border border-green-500">Giá Vốn</th>
+            </tr>
+          </thead>
+          <tbody>
+            {uploading && <Loading />}
+            {getMenuListItem ? (
+              <MenuListItem
+                getMenuListItem={getMenuListItem}
+                isMenuItemVisible={isMenuItemVisible}
+                handleClick={handleClick}
+              />
+            ) : (
+              <div className="w-full h-[200px] bg-gray-100 flex items-center justify-center ">
+                <div className="w-1/2 h-1/2  text-gray-400 text-center">
+                  <FileOutlined className="text-lg" />
+                  <p>Bạn chưa có sản phẩm nào</p>
+                </div>
+              </div>
+            )}
+            {/* <tr
+              className={`cursor-pointer ${isMenuItemVisible ? "mb-4" : ""}`}
+              onClick={handleClick}
+            >
+              <td className="p-2 text-center align-middle">SP00003</td>
+              <td className="p-2 text-center align-middle">Cafe</td>
+              <td className="p-2 text-center align-middle">Đồ ăn</td>
+              <td className="p-2 text-center align-middle">0</td>
+              <td className="p-2 text-center align-middle">0</td>
+              <td className="p-2 text-center align-middle">0</td>
+            </tr> */}
+            {/* {isMenuItemVisible && (
+              <tr>
+                <td colSpan="6">
+                  <MenuItem />
+                </td>
+              </tr>
+            )} */}
+          </tbody>
+        </table>
       </div>
       {showAddProductForm && (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">

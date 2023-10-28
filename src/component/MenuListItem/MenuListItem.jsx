@@ -11,7 +11,7 @@ const MenuListItem = ({ getMenuListItem, isMenuItemVisible, handleClick }) => {
     />
   ));
 
-  return <div>{MenuList}</div>;
+  return <>{MenuList}</>;
 };
 
 export default MenuListItem;

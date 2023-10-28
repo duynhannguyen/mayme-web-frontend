@@ -13,8 +13,8 @@ import { validationSchema } from "../../validationSchema/auth.validation.js";
 import Loading from "../../component/Loading/Loading.jsx";
 
 const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showToggleIcon, setShowToggleIcon] = useState("");
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [showToggleIcon, setShowToggleIcon] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -53,7 +53,6 @@ const LoginPage = () => {
     },
     validationSchema: validationSchema.LoginValidationSchema,
   });
-  console.log("Loading:", loading);
   const { handleChange, handleSubmit, errors } = formik;
   // const setInputType = (showPassword) => {
   //   if (showPassword) {
@@ -98,7 +97,7 @@ const LoginPage = () => {
                 id="password"
                 name="password"
                 type={"password"}
-                showPassword={showPassword}
+                // showPassword={showPassword}
                 // value={showToggleIcon}
                 // setShowToggleIcon={setShowToggleIcon}
                 handleChange={handleChange}

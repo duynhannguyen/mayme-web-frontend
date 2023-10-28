@@ -7,12 +7,22 @@ import SiteLayout from "./component/Layouts/SiteLayout/SiteLayout";
 
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import SignupPage from "./pages/SignUpPage/SignupPage.jsx";
+
+import MainPage from "./pages/MainPage/MainPage.jsx"; //
+import MenuItem from "./pages/MenuItem/MenuItem.jsx";
+
+
 import ProtectedRoute from "./component/ProtectedRoute/ProtectedRoute.jsx";
-import MainPage from "./pages/MainPage/MainPage.jsx";
+
 import { useDispatch } from "react-redux";
 import { TOKEN_TYPES } from "./constant/constant";
 import AuthApi from "./services/authAPI";
 import { login } from "./redux/Auth/authSlice";
+
+import Order from "./pages/Order/Order";
+import ListMenu from "./pages/ListMenu/ListMenu";
+import Menu2 from "./pages/Menu2/Menu2";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -25,7 +35,6 @@ function App() {
         const payload = {
           user: currentUserData,
         };
-        console.log(currentUserData);
         dispatch(login(payload));
       } catch (error) {
         console.log("fetch-current-user-failed:", error);
@@ -49,6 +58,12 @@ function App() {
           path="mainpage"
           element={<ProtectedRoute component={MainPage} />}
         />
+        <Route path="menuitem" element={<MenuItem />} />
+        <Route path="menuitem" element={<MenuItem />} />
+        <Route path="listmenu" element={<ListMenu />} />
+        <Route path="menu2" element={<Menu2/>}/>
+
+        <Route path="order" element={<Order />} />
       </Routes>
     </Router>
   );

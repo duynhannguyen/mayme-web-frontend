@@ -1,66 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Item from '../../component/Item/Item'
 import QRCode from 'qrcode.react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDishList } from '../../redux/DishList/dishListAction';
 const ListMenu = () => {
   const menu2Url = 'http://localhost:5173/menu2';
   const [showQRCode, setShowQRCode] = useState(false);
-  const [currentMenu, setCurrentMenu] = useState('coffee');
-  const axios = require('axios');
+  const [currentMenu, setCurrentMenu] = useState('menu');
+  // const axios = require('axios');
+  const dispatch = useDispatch()
+  const getDishList = useSelector((state) => state.dishList.dishList);
+  
+  console.log("list",getDishList)
+  useEffect(() => {
+    dispatch(fetchDishList())
+  },[])
+// const fetchData = async () => {
+//   try {
+//     const response = await axios.get('http://localhost:5173/api/v1/mainpage/menu');
+//     const data = response.data;
+//     console.log(data); // Xử lý dữ liệu nhận được từ backend ở đây
+//   } catch (error) {
+//     console.log('Error fetching data:', error);
+//   }
+// };
 
-const fetchData = async () => {
-  try {
-    const response = await axios.get('http://localhost:5173/api/v1/mainpage/menu');
-    const data = response.data;
-    console.log(data); // Xử lý dữ liệu nhận được từ backend ở đây
-  } catch (error) {
-    console.log('Error fetching data:', error);
-  }
-};
-
-fetchData();
-  const dataCoffee = [
-      {
-      imageUrl:
-        'https://t2.gstatic.com/licensed-image?q=tbn:ANd9GcRqPnxhzG50sOFqBgyKvZtmOHiB3mwkR2YtId5jZG5nApAoiSDkXMK4Rxxqpkfg0ZW9',
-      title: 'Cappuccino',
-      description: 'Mô tả về cappuccino.',
-      price: '$3.99',
-    },
-  ];
-  const dataNuocep = [
-    {
-      imageUrl:
-        'https://t2.gstatic.com/licensed-image?q=tbn:ANd9GcRqPnxhzG50sOFqBgyKvZtmOHiB3mwkR2YtId5jZG5nApAoiSDkXMK4Rxxqpkfg0ZW9',
-      title: 'Nước ép cam',
-      description: 'Mô tả về Nước ép cam.',
-      price: '$3.99',
-    },
-  ];
-  const dataTrasua = [
-    {
-      imageUrl:
-        'https://t2.gstatic.com/licensed-image?q=tbn:ANd9GcRqPnxhzG50sOFqBgyKvZtmOHiB3mwkR2YtId5jZG5nApAoiSDkXMK4Rxxqpkfg0ZW9',
-      title: 'trà sữa đài loan',
-      description: 'Mô tả về trà sữa đài loan.',
-      price: '$3.99',
-    },
-   
-  ];
-  const dataSinhto = [
-    {
-      imageUrl:
-        'https://t2.gstatic.com/licensed-image?q=tbn:ANd9GcRqPnxhzG50sOFqBgyKvZtmOHiB3mwkR2YtId5jZG5nApAoiSDkXMK4Rxxqpkfg0ZW9',
-      title: 'sinh tố 1',
-      description: 'Mô tả về sinh tố.',
-      price: '$3.99',
-    },
-    {
-      imageUrl: 'https://t2.gstatic.com/licensed-image?q=tbn:ANd9GcRqPnxhzG50sOFqBgyKvZtmOHiB3mwkR2YtId5jZG5nApAoiSDkXMK4Rxxqpkfg0ZW9',
-      title: 'sinh to',
-      description: 'Mô tả về Latte.',
-      price: '$19.99',
-    },
-  ];
+// fetchData();
+ 
+  
   const handleMenuClick = (menu) => {
     setCurrentMenu(menu);
     setShowQRCode(false);
@@ -68,14 +36,17 @@ fetchData();
   const renderMenuItems = () => {
     let menuData = [];
 
-    if (currentMenu === 'coffee') {
-      menuData = dataCoffee;
+    if (currentMenu === 'menu') {
+      menuData = getDishList;
+    } else if (currentMenu === 'coffee') {
+      menuData = getDishList.filter((item) => item.loai === 'coffee' || item.loai === 'Latte' || item.loai === 'Khuyến mãi');
     } else if (currentMenu === 'nuocep') {
-      menuData = dataNuocep;
+      menuData = getDishList.filter((item) => item.loai === 'nuoc ep');
     } else if (currentMenu === 'trasua') {
-      menuData = dataTrasua;
+      menuData = getDishList.filter((item) => item.loai === 'tra sua');
     } else if (currentMenu === 'sinhto') {
-      menuData = dataSinhto;
+      menuData = getDishList.filter((item) => item.loai === 'sinh to');
+    
     }return menuData.map((item, index) => (
       <Item
         key={index}
@@ -83,6 +54,7 @@ fetchData();
         title={item.tenHang}
         description={item.nhomHang}
         price={item.giaBan}
+
       />
     ));
   };
@@ -99,14 +71,14 @@ fetchData();
 
         <div className="bg- px-2 lg:px-4 py-2 lg:py-10 sm:rounded-xl flex lg:flex-col justify-between">
           <nav className="flex items-center flex-row space-x-2 lg:space-x-0 lg:flex-col lg:space-y-2">
-            <a className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 pr-1 hover:text-white smooth-hover" href="#">
+            <button className="bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"onClick={() => handleMenuClick('menu')}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="3" y1="12" x2="21" y2="12" />
                 <line x1="3" y1="6" x2="21" y2="6" /> 
                 <line x1="3" y1="18" x2="21" y2="18" />
               </svg>
               Menu
-            </a>
+            </button>
             <button className="bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"   onClick={() => handleMenuClick('coffee')}>
               Coffee
             </button>
@@ -115,10 +87,10 @@ fetchData();
               Trà sữa
             </button>
             <button className="bg-gray-800 text-white p-4 inline-flex justify-center rounded-md" onClick={() => handleMenuClick('sinhto')}>
-              Sinh Tố
+              Hồng Trà 
               </button>
             <button className="bg-gray-800 text-white p-4 inline-flex justify-center rounded-md" onClick={() => handleMenuClick('nuocep')}>
-              Nước ép
+              Đá xay
             </button>
           </nav>
         </div>

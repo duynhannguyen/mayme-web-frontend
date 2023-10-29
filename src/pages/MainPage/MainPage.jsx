@@ -35,6 +35,7 @@ const MainPage = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
   const getDishList = useSelector((state) => state.dishList.dishList);
+  console.log(getDishList)
   const loadingState = useSelector((state) => state.dishList.loading);
   const onHandleLogout = () => {
     dispatch(logout());

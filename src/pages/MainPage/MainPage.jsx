@@ -7,6 +7,7 @@ import ProductAPI from "../../services/productAPI.js";
 import { useNavigate } from "react-router-dom";
 import MenuListItem from "../../component/MenuListItem/MenuListItem.jsx";
 import Loading from "../../component/Loading/Loading.jsx";
+import { fetchDishList } from "../../redux/DishList/dishListAction.js";
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [isMenuItemVisible, setIsMenuItemVisible] = useState(false);
@@ -18,21 +19,23 @@ const MainPage = () => {
   const [getMenuListItem, setGetMenuListItem] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetchMenuItem();
-  }, [reload]);
-  const fetchMenuItem = async () => {
-    try {
-      setUploading(true);
-      const fetchItem = await ProductAPI.get();
-      setGetMenuListItem(fetchItem.data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setUploading(false);
-    }
-  };
+    dispatch(fetchDishList());
+  }, []);
+  // const fetchMenuItem = async () => {
+  //   try {
+  //     setUploading(true);
+  //     const fetchItem = await ProductAPI.get();
+  //     setGetMenuListItem(fetchItem.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     setUploading(false);
+  //   }
+  // };
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
+  const getDishList = useSelector((state) => state.dishList.dishList);
+  const loadingState = useSelector((state) => state.dishList.loading);
   const onHandleLogout = () => {
     dispatch(logout());
     navigate("/");
@@ -59,9 +62,9 @@ const MainPage = () => {
       formData.append("body", JSON.stringify(values));
 
       const response = await ProductAPI.create(formData);
+      dispatch(fetchDishList());
       setShowAddProductForm(false);
       setPreviewImage(null);
-      setReload(Math.random());
     } catch (error) {
       console.error(error);
     } finally {
@@ -127,9 +130,9 @@ const MainPage = () => {
           </thead>
           <tbody>
             {uploading && <Loading />}
-            {getMenuListItem ? (
+            {getDishList ? (
               <MenuListItem
-                getMenuListItem={getMenuListItem}
+                getMenuListItem={getDishList}
                 isMenuItemVisible={isMenuItemVisible}
                 handleClick={handleClick}
               />

@@ -23,9 +23,6 @@ const AddProductForm = ({
   const showMenuType = () => {
     setShowMenuFormType(!showMenuFormType);
   };
-  // const refreshToGetData = () => {
-  //   setReload(Math.random());
-  // };
   const dispatch = useDispatch();
   const getTypeMenu = useSelector((state) => state.typeMenu.typeMenu);
   const getDishGroup = useSelector((state) => state.dishGroup.dishGroup);
@@ -222,11 +219,7 @@ const AddProductForm = ({
           </button>
           {showMenuFormType && (
             <div className="fixed top-0 left-0 right-0 bottom-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <AddForm
-                // refreshToGetData={refreshToGetData}
-                closeMenuType={closeMenuType}
-                setReload={setReload}
-              />
+              <AddForm closeMenuType={closeMenuType} />
             </div>
           )}
         </label>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 const SectionHero = () => {
   return (
@@ -24,9 +24,11 @@ const SectionHero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <span>phần mềm</span>
+            <span>Phần mềm</span>
             <br />
-            <span >quản lý bán hàng</span>
+            <span>quản lý </span>
+            <br />
+            <span>bán hàng </span>
             <br />
             <span>phổ biến nhất</span>
           </motion.h1>

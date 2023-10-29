@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchTypeMenu } from "../../redux/TypeMenu/typeMenuAction";
 import TypeMenuApi from "../../services/typeMenuAPI";
 const AddDishGroupForm = ({ closeMenuType, refreshToGetData, setReload }) => {
   const [typeMenu, setTypeMenu] = useState("");
@@ -6,21 +8,15 @@ const AddDishGroupForm = ({ closeMenuType, refreshToGetData, setReload }) => {
   const onHandleChange = (e) => {
     setTypeMenu(e.target.value);
   };
-
+  const dispatch = useDispatch();
   const onHandleSubmit = async () => {
     try {
       setLoading(true);
-      console.log("menu", typeMenu);
       const newTypeMenu = {
         loaiThucDon: typeMenu,
       };
       const response = await TypeMenuApi.create(newTypeMenu);
-      console.log(response);
-      // const update = () => {
-      //   reload(Math.random());
-      // };
-      // update();
-      // refreshToGetData();
+      dispatch(fetchTypeMenu());
 
       closeMenuType();
     } catch (error) {

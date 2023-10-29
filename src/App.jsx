@@ -1,7 +1,6 @@
 import "./index.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SiteLayout from "./component/Layouts/SiteLayout/SiteLayout";
 
@@ -22,6 +21,7 @@ import { login } from "./redux/Auth/authSlice";
 import Order from "./pages/Order/Order";
 import ListMenu from "./pages/ListMenu/ListMenu";
 import Menu2 from "./pages/Menu2/Menu2";
+import ListMenu from "./pages/ListMenu/ListMenu.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +64,7 @@ function App() {
         <Route path="menu2" element={<Menu2/>}/>
 
         <Route path="order" element={<Order />} />
+        <Route path="listmenu" element={<ListMenu />} />
       </Routes>
     </Router>
   );

@@ -3,22 +3,22 @@ import { PhotoIcon } from "@heroicons/react/24/solid";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { useFormik } from "formik";
 import AddForm from "../AddForm/AddForm";
-import AddDishGroupForm from "../AddForm/AddForm.jsx";
-import TypeMenuApi from "../../services/typeMenuAPI";
+import AddDishGroupForm from "../AddDishGroupForm/AddDishGroupForm.jsx";
 import productValidationSchema from "../../validationSchema/product.validation.js";
 import CustomErrorMessage from "../CustomErrorMessage/CustomErrorMessage.jsx";
-import dishGroupApi from "../../services/dishGroupAPI";
+import Loading from "../Loading/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTypeMenu } from "../../redux/TypeMenu/typeMenuAction";
+import { fetchDishGroup } from "../../redux/DishGroup/DishGroupAction";
 const AddProductForm = ({
   onSubmitHandler,
   onHandleCloseForm,
-  showAddProductForm,
   onChangeFile,
   previewImage,
   closeImage,
+  uploading,
 }) => {
   const [showMenuFormType, setShowMenuFormType] = useState(false);
-  const [typeMenuList, setTypeMenuList] = useState([]);
-  const [dishGroupList, setDishGroupList] = useState([]);
   const [reload, setReload] = useState(null);
   const [giaBan, setGiaBan] = useState('');
   const [giaVon, setGiaVon] = useState('');
@@ -50,28 +50,19 @@ const AddProductForm = ({
   const showMenuType = () => {
     setShowMenuFormType(!showMenuFormType);
   };
-  const refreshToGetData = () => {
-    setReload(Math.random());
-  };
+  const dispatch = useDispatch();
+  const getTypeMenu = useSelector((state) => state.typeMenu.typeMenu);
+  const getDishGroup = useSelector((state) => state.dishGroup.dishGroup);
+
   const fetchData = async () => {
     try {
-      const responseDataTypeMenu = await TypeMenuApi.get();
-      setTypeMenuList(responseDataTypeMenu.data);
-      const responseDataDishGroup = await dishGroupApi.get();
-      setDishGroupList(responseDataDishGroup.data);
-
-      // const getData = responseData.data;
-      // console.log("Data", getData);
-
-      // const typeMenuList = getData.map((typeMenu) => {
-      //   return <option key={typeMenu._id}> {typeMenu.loaiThucDon} </option>;
-      // });
-      // console.log("map", typeMenuList);
+      dispatch(fetchTypeMenu());
+      dispatch(fetchDishGroup());
     } catch (error) {
       console.error(error);
     }
   };
-  // const a = fetchDataTypeMenu();
+
   useEffect(() => {
     fetchData();
   }, [reload]);
@@ -124,7 +115,7 @@ const AddProductForm = ({
             name="image"
             type="file"
             accept="image/*"
-            className="sr-only"
+            className="hidden"
             onChange={onChangeFile}
           />
         </label>
@@ -137,7 +128,8 @@ const AddProductForm = ({
 
   return (
     <form className="bg-white px-10 pt-6" onSubmit={handleSubmit}>
-      <div className="   ">
+      {uploading && <Loading />}
+      <div>
         <div className="border-b ">
           <h2 className="text-base font-semibold leading-7">Thêm hàng hóa</h2>
           {errors && (
@@ -248,12 +240,8 @@ const AddProductForm = ({
             +
           </button>
           {showMenuFormType && (
-            <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <AddForm
-                refreshToGetData={refreshToGetData}
-                closeMenuType={closeMenuType}
-                setReload={setReload}
-              />
+            <div className="fixed top-0 left-0 right-0 bottom-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-50">
+              <AddForm closeMenuType={closeMenuType} />
             </div>
           )}
         </label>
@@ -263,13 +251,12 @@ const AddProductForm = ({
             type="text"
             name="loai"
             id="loai"
-            // value={formik.values.loai}
             onChange={handleChange}
             autoComplete="country-name"
             className="  block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
             <option>Lựa chọn</option>
-            {typeMenuList.map((typeMenu) => {
+            {getTypeMenu.map((typeMenu) => {
               return (
                 <option key={typeMenu._id}> {typeMenu.loaiThucDon} </option>
               );
@@ -291,7 +278,7 @@ const AddProductForm = ({
           </button>
         </label>
         {showMenuFormType && (
-          <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="fixed top-0 left-0 right-0 bottom-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-50">
             <AddDishGroupForm closeMenuType={closeMenuType} />
           </div>
         )}
@@ -306,12 +293,9 @@ const AddProductForm = ({
             className="  block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
             <option>Lựa chọn</option>
-            {dishGroupList.map((group) => {
+            {getDishGroup.map((group) => {
               return <option key={group._id}> {group.nhomHang}</option>;
             })}
-            {/* <option>1</option>
-            <option>2</option>
-            <option>3</option> */}
           </select>
         </div>
 
@@ -320,12 +304,10 @@ const AddProductForm = ({
             htmlFor="cover-photo"
             className="block text-sm font-medium leading-6 mt-2"
           >
-            chọn ảnh
+            Chọn ảnh
           </label>
 
           <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-            
-
             {previewImage ? previewDishImage : uploadDishImage}
           </div>
         </div>

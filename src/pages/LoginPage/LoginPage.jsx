@@ -13,8 +13,8 @@ import { validationSchema } from "../../validationSchema/auth.validation.js";
 import Loading from "../../component/Loading/Loading.jsx";
 
 const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showToggleIcon, setShowToggleIcon] = useState("");
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [showToggleIcon, setShowToggleIcon] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -53,7 +53,6 @@ const LoginPage = () => {
     },
     validationSchema: validationSchema.LoginValidationSchema,
   });
-  console.log("Loading:", loading);
   const { handleChange, handleSubmit, errors } = formik;
   // const setInputType = (showPassword) => {
   //   if (showPassword) {
@@ -98,9 +97,9 @@ const LoginPage = () => {
                 id="password"
                 name="password"
                 type={"password"}
-                showPassword={showPassword}
+                // showPassword={showPassword}
                 // value={showToggleIcon}
-                setShowToggleIcon={setShowToggleIcon}
+                // setShowToggleIcon={setShowToggleIcon}
                 handleChange={handleChange}
               />
               <Button type="submit" name={"Đăng nhập"} />
@@ -118,8 +117,7 @@ const LoginPage = () => {
             <Button
               type="button"
               name="X"
-              className="text-red-500 text-1xl"
-              // Thêm các thuộc tính CSS tùy chỉnh để định vị nút button
+              className="text-gray-500 text-2xl font-semibold"
               style={{ position: "absolute", top: "0", right: "0" }}
               onClick={handleClick}
             />

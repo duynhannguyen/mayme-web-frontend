@@ -3,16 +3,16 @@ const FieldTextInput = ({
   id,
   label,
   placeholder,
-  showPassword,
-  setShowToggleIcon,
+  // showPassword,
+  // setShowToggleIcon,
   handleChange,
   ...restProps
 }) => {
   const inputProps = {
     id,
     placeholder,
-    showPassword,
-    setShowToggleIcon,
+    // showPassword,
+    // setShowToggleIcon,
     onChange: handleChange,
     ...restProps,
   };

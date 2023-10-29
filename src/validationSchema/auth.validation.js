@@ -16,14 +16,14 @@ const LoginValidationSchema = yup.object().shape({
     .required("Password is required"),
 });
 const signupValidationSchema = yup.object().shape({
-  hoTen: yup.string().required("vui lòng nhập số điện thoại"),
-  tenNhaHang: yup.string().required("vui lòng nhập số điện thoại"),
-  sdt: yup.string().required("vui lòng nhập số điện thoại").min(10),
+  hoTen: yup.string().required("Vui lòng họ tên"),
+  tenNhaHang: yup.string().required("Vui lòng nhập tên nhà hàng "),
+  sdt: yup.string().required("Vui lòng nhập số điện thoại").min(10),
   email: yup
     .string()
     .email()
     .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invaid email address")
-    .required("vui lòng nhập địa chỉ email"),
+    .required("Vui lòng nhập địa chỉ email"),
   password: yup
     .string()
     .matches(

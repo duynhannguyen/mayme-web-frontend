@@ -117,8 +117,7 @@ const LoginPage = () => {
             <Button
               type="button"
               name="X"
-              className="text-red-500 text-1xl"
-              // Thêm các thuộc tính CSS tùy chỉnh để định vị nút button
+              className="text-gray-500 text-2xl font-semibold"
               style={{ position: "absolute", top: "0", right: "0" }}
               onClick={handleClick}
             />

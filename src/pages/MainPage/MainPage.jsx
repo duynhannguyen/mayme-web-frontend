@@ -129,7 +129,7 @@ const MainPage = () => {
             </tr>
           </thead>
           <tbody>
-            {uploading && <Loading />}
+            {loadingState && <Loading />}
             {getDishList ? (
               <MenuListItem
                 getMenuListItem={getDishList}
@@ -137,12 +137,13 @@ const MainPage = () => {
                 handleClick={handleClick}
               />
             ) : (
-              <div className="w-full h-[200px] bg-gray-100 flex items-center justify-center ">
-                <div className="w-1/2 h-1/2  text-gray-400 text-center">
-                  <FileOutlined className="text-lg" />
-                  <p>Bạn chưa có sản phẩm nào</p>
-                </div>
-              </div>
+              // <div className="w-full h-[200px] bg-gray-100 flex items-center justify-center ">
+              //   <div className="w-1/2 h-1/2  text-gray-400 text-center">
+              //     <FileOutlined className="text-lg" />
+              //     <p>Bạn chưa có sản phẩm nào</p>
+              //   </div>
+              // </div>
+              ""
             )}
           </tbody>
         </table>

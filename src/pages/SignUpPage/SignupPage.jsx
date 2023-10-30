@@ -41,7 +41,7 @@ function SignupPage() {
   });
   const { handleChange, handleSubmit, errors } = formik;
   if (isAuthenticated) {
-    return navigate("/");
+    return navigate("/mainpage");
   }
   return (
     <div className="h-screen md:flex">

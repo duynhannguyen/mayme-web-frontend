@@ -1,7 +1,12 @@
-import React from "react";
+import { FallOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import UpdateProductForm from "../../component/UpdateProductForm/UpdateProductForm";
+import { fetchDishList } from "../../redux/DishList/dishListAction";
+import ProductAPI from "../../services/productAPI";
 
 const MenuItem = ({
-  _id,
+  id,
   maHangHoa,
   tenHang,
   nhomHang,
@@ -10,6 +15,23 @@ const MenuItem = ({
   giaVon,
   hinhAnh,
 }) => {
+  const [showUpdateForm, setShowUpdateFrom] = useState(false);
+  const dispatch = useDispatch();
+  const onShowUpdateForm = () => {
+    setShowUpdateFrom(!showUpdateForm);
+    console.log();
+  };
+  const onHandleDelete = async (id) => {
+    try {
+      console.log(id);
+      const response = await ProductAPI.delete(id);
+      dispatch(fetchDishList());
+      console.log("deleted");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="">
       <div className="">
@@ -21,7 +43,7 @@ const MenuItem = ({
             <div className="mr-2">Món thêm</div>
           </div>
         </div>
-        <div className="px-8 py-4 text-2xl text-yellow-700" id={_id}>
+        <div className="px-8 py-4 text-2xl text-yellow-700" id={id}>
           {tenHang}
         </div>
         <div className="  flex  items-center px-8   gap-20  ">
@@ -42,10 +64,26 @@ const MenuItem = ({
           </div>
         </div>
         <div className="flex items-center justify-end mt-10 py-2 px-4 gap-2">
-          <button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
+          <button
+            type="button"
+            onClick={onShowUpdateForm}
+            className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+          >
             Cập Nhật
           </button>
-          <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
+
+          {showUpdateForm && (
+            <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+              {" "}
+              <UpdateProductForm />{" "}
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={() => onHandleDelete(id)}
+            className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+          >
             Xoá
           </button>
         </div>

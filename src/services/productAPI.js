@@ -10,6 +10,10 @@ const ProductAPI = {
     const url = "/mainpage/menu";
     return api.post(url, body);
   },
+  delete: (id) => {
+    const url = `/mainpage/menu/${id}`;
+    return api.delete(url);
+  },
 };
 
 export default ProductAPI;

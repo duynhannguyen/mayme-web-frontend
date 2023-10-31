@@ -11,12 +11,10 @@ import { fetchDishList } from "../../redux/DishList/dishListAction.js";
 const MainPage = () => {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [isMenuItemVisible, setIsMenuItemVisible] = useState(false);
-  const [reload, setReload] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
-  const [getMenuListItem, setGetMenuListItem] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchDishList());
@@ -60,7 +58,6 @@ const MainPage = () => {
       const formData = new FormData();
       formData.append("image", selectedFile);
       formData.append("body", JSON.stringify(values));
-
       const response = await ProductAPI.create(formData);
       dispatch(fetchDishList());
       setShowAddProductForm(false);
@@ -86,11 +83,20 @@ const MainPage = () => {
     // Navigate to the ListMenu page
     navigate("/listmenu");
   };
-
+  const handleBackToHome = () => {
+    navigate("/");
+  };
   return (
     <div className="  items-center min-h-screen bg-gray-100">
       <div className=" sticky top-0 flex w-full justify-between items-center mb-4   px-4 py-2 bg-white shadow-md">
-        <h1 className="text-xl font-bold text-yellow-700">MAYME</h1>
+        <div
+          onClick={handleBackToHome}
+          className="flex items-center justify-center gap-3 cursor-pointer "
+        >
+          <img className="w-[50px] h[50px] rounded-xl " src="images/logo.jpg" />
+
+          <h1 className="text-xl font-bold text-yellow-700">MAYME</h1>
+        </div>
         <div className=" border-2 border-yellow-700 w-auto p-2 rounded-2xl flex items-center hover:bg-amber-700 transition-all duration-300 relative group cursor-default justify-center text-lg ">
           <div className="text-right mr-2">{currentUser.tenNhaHang}</div>
           <UserOutlined />

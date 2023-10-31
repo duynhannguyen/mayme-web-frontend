@@ -16,17 +16,73 @@ const MenuItem = ({
   hinhAnh,
 }) => {
   const [showUpdateForm, setShowUpdateFrom] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [error, setError] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   const dispatch = useDispatch();
+
+  const dishInfo = {
+    id,
+    maHangHoa,
+    tenHang,
+    nhomHang,
+    loai,
+    giaBan,
+    giaVon,
+    hinhAnh,
+  };
+  const handleFileChange = (e) => {
+    if (e) {
+      const file = e.target.files[0];
+      setPreviewImage(URL.createObjectURL(file));
+      setSelectedFile(file);
+    } else {
+      return;
+    }
+  };
+  const onHandleCloseForm = () => {
+    setShowUpdateFrom(false);
+    setPreviewImage(null);
+  };
+
+  const handleSubmit = async (values) => {
+    try {
+      setUploading(true);
+      setError(null);
+      if (selectedFile) {
+        const formData = new FormData();
+        formData.append("hinhAnh", selectedFile);
+        formData.append("body", JSON.stringify(values));
+        const response = await ProductAPI.update(formData, id);
+        console.log(response.data);
+        dispatch(fetchDishList());
+        setShowUpdateFrom(false);
+      } else {
+        const newValues = { ...values, hinhAnh: hinhAnh };
+        console.log(newValues);
+        const formData = new FormData();
+
+        formData.append("body", JSON.stringify(values));
+        const response = await ProductAPI.update(formData, id);
+        console.log(response.data);
+        dispatch(fetchDishList());
+        setShowUpdateFrom(false);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const onShowUpdateForm = () => {
     setShowUpdateFrom(!showUpdateForm);
-    console.log();
   };
   const onHandleDelete = async (id) => {
     try {
-      console.log(id);
       const response = await ProductAPI.delete(id);
       dispatch(fetchDishList());
-      console.log("deleted");
     } catch (error) {
       console.error(error);
     }
@@ -75,7 +131,15 @@ const MenuItem = ({
           {showUpdateForm && (
             <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
               {" "}
-              <UpdateProductForm />{" "}
+              <UpdateProductForm
+                onSubmitHandler={handleSubmit}
+                onHandleCloseForm={onHandleCloseForm}
+                onChangeFile={handleFileChange}
+                previewImage={previewImage}
+                setPreviewImage={setPreviewImage}
+                uploading={uploading}
+                dishInfo={dishInfo}
+              />{" "}
             </div>
           )}
 

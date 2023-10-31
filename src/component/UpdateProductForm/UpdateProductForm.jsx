@@ -14,12 +14,14 @@ const UpdateProductForm = ({
   onSubmitHandler,
   onHandleCloseForm,
   onChangeFile,
-  previewImage,
-  closeImage,
   uploading,
+  dishInfo,
+  previewImage,
+  setPreviewImage,
 }) => {
   const [showMenuFormType, setShowMenuFormType] = useState(false);
   const [reload, setReload] = useState(null);
+  const [dishValue, setDishValue] = useState(dishInfo);
   const showMenuType = () => {
     setShowMenuFormType(!showMenuFormType);
   };
@@ -38,34 +40,48 @@ const UpdateProductForm = ({
 
   useEffect(() => {
     fetchData();
-  }, [reload]);
+  }, []);
   const closeMenuType = () => {
     setShowMenuFormType(false);
   };
   const formik = useFormik({
     initialValues: {
-      maHangHoa: "",
-      tenHang: "",
-      nhomHang: "",
-      loai: "",
-      giaBan: "",
-      giaVon: "",
+      maHangHoa: dishValue.maHangHoa,
+      tenHang: dishValue.tenHang,
+      nhomHang: dishValue.nhomHang,
+      loai: dishValue.loai,
+      giaBan: dishValue.giaBan,
+      giaVon: dishValue.giaVon,
+      // hinhAnh: "",
     },
     onSubmit: (values) => {
       onSubmitHandler(values);
     },
-    validationSchema: productValidationSchema.addProduct,
+    validationSchema: productValidationSchema.updateProduct,
   });
+  const cancelPreviewImage = () => {
+    setDishValue({ ...dishValue, hinhAnh: null });
+    setPreviewImage(null);
+  };
   const previewDishImage = (
     <div className="w-[500px] h-[300px]  relative">
+      <input
+        id="file-upload"
+        name="image"
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={onChangeFile}
+      />
       <img
         className="w-full h-full object-contain"
-        src={previewImage}
+        src={previewImage || dishValue.hinhAnh}
+        // src={previewImage}
         alt="Preview dish image"
       />
       <CloseCircleOutlined
         className="absolute text-gray-500 top-0 right-0 translate-x-1/2 -translate-y-1/2 cursor-pointer "
-        onClick={closeImage}
+        onClick={cancelPreviewImage}
       />
     </div>
   );
@@ -87,6 +103,7 @@ const UpdateProductForm = ({
             name="image"
             type="file"
             accept="image/*"
+            value={formik.values.hinhAnh}
             className="hidden"
             onChange={onChangeFile}
           />
@@ -96,8 +113,19 @@ const UpdateProductForm = ({
       <p className="text-xs leading-5">PNG, JPG, GIF</p>
     </div>
   );
-  const { handleSubmit, handleChange, errors } = formik;
 
+  const isShowPreviewImage = () => {
+    if (dishValue.hinhAnh) {
+      return previewDishImage;
+    } else if (previewImage) {
+      return previewDishImage;
+    } else {
+      return uploadDishImage;
+    }
+  };
+  // console.log("view", isShowPreviewImage());
+
+  const { handleSubmit, handleChange, errors } = formik;
   return (
     <form className="bg-white px-10 pt-6" onSubmit={handleSubmit}>
       {uploading && <Loading />}
@@ -106,12 +134,6 @@ const UpdateProductForm = ({
           <h2 className="text-base font-semibold leading-7">
             Cập nhật hàng hóa
           </h2>
-          {errors && (
-            <CustomErrorMessage
-              style={"text-center"}
-              content={"Vui lòng điền đây đủ thông tin cần thiết"}
-            />
-          )}
           <div className="flex justify-start gap-40">
             <p>Thông tin</p>
             <p>Mô tả chi tiết</p>
@@ -131,7 +153,7 @@ const UpdateProductForm = ({
               type="text"
               name="maHangHoa"
               id="maHangHoa"
-              // value={formik.values.maHangHoa}
+              value={formik.values.maHangHoa}
               onChange={handleChange}
               autoComplete="family-name"
               className="block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -152,6 +174,7 @@ const UpdateProductForm = ({
               // value={formik.values.giaVon}
               onChange={handleChange}
               autoComplete="family-name"
+              value={formik.values.giaVon}
               className={
                 errors.giaVon
                   ? "block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-red-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -173,7 +196,7 @@ const UpdateProductForm = ({
               type="text"
               name="tenHang"
               id="tenHang"
-              // value={formik.values.tenHang}
+              value={formik.values.tenHang}
               onChange={handleChange}
               autoComplete="family-name"
               className={
@@ -195,7 +218,7 @@ const UpdateProductForm = ({
               type="text"
               name="giaBan"
               id="giaBan"
-              // value={formik.values.giaBan}
+              value={formik.values.giaBan}
               onChange={handleChange}
               autoComplete="family-name"
               className={
@@ -231,6 +254,7 @@ const UpdateProductForm = ({
             type="text"
             name="loai"
             id="loai"
+            value={formik.values.loai}
             onChange={handleChange}
             autoComplete="country-name"
             className="  block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -267,7 +291,7 @@ const UpdateProductForm = ({
             type="text"
             name="nhomHang"
             id="nhomHang"
-            // value={formik.values.nhomHang}
+            value={formik.values.nhomHang}
             onChange={handleChange}
             autoComplete="country-name"
             className="  block w-full rounded-md border-0 px-1.5 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
@@ -288,7 +312,7 @@ const UpdateProductForm = ({
           </label>
 
           <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-            {previewImage ? previewDishImage : uploadDishImage}
+            {isShowPreviewImage()}
           </div>
         </div>
 

@@ -13,30 +13,6 @@ const MenuRow = ({
   hinhAnh,
 }) => {
   return (
-    // <div
-    //   onClick={() => handleClick(_id)}
-    //   id={_id}
-    //   key={_id}
-    //   className={
-    //     _id === isMenuItemVisible
-    //       ? "p-[1px] border-2 border-green-500"
-    //       : "p-[1px]"
-    //   }
-    // >
-    //   <div
-    //     className={
-    //       _id === isMenuItemVisible
-    //         ? "flex justify-between items-center cursor-pointe bg-green-100 "
-    //         : " flex bg-slate-200 justify-between items-center cursor-pointer hover:bg-green-100"
-    //     }
-    //   >
-    //     <div className="text-xs font-bold mr-2">{maHangHoa}</div>
-    //     <div className="mr-2">{tenHang}</div>
-    //     <div className="mr-2">{nhomHang}</div>
-    //     <div className="mr-2">{loai}</div>
-    //     <div className="mr-2">{giaBan}</div>
-    //     <div className="mr-2">{giaVon}</div>
-    //   </div>
     <>
       <tr
         className={
@@ -47,7 +23,15 @@ const MenuRow = ({
         onClick={() => handleClick(_id)}
       >
         <td className="p-2 border-b-[1.5px] border-green-500">{maHangHoa}</td>
-        <td className="p-2 border-b-[1.5px] border-green-500">{tenHang}</td>
+        <td className="p-2 border-b-[1.5px] border-green-500 text-center    ">
+          <p className=" flex items-center justify-start gap-4">
+            <img
+              className="  w-14 h-14 rounded-lg shadow-[0px_3px_8px_rgba(0,0,0,0.24)]"
+              src={hinhAnh}
+            />
+            <p> {tenHang}</p>
+          </p>
+        </td>
         <td className="p-2 border-b-[1.5px] border-green-500">{nhomHang}</td>
         <td className="p-2 border-b-[1.5px] border-green-500">{loai}</td>
         <td className="p-2 border-b-[1.5px] border-green-500">{giaBan}</td>
@@ -70,7 +54,6 @@ const MenuRow = ({
         </tr>
       )}
     </>
-    // {/* </div> */}
   );
 };
 

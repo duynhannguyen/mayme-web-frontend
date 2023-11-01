@@ -41,7 +41,7 @@ function SignupPage() {
   });
   const { handleChange, handleSubmit, errors } = formik;
   if (isAuthenticated) {
-    return navigate("/");
+    return navigate("/mainpage");
   }
   return (
     <div className="h-screen md:flex">
@@ -49,17 +49,17 @@ function SignupPage() {
         <Loading />
       ) : (
         <>
-          <div className="w-[40%] h-full">
+          <div className="w-[45%] h-full">
             <div className="w-full  h-full">
               <img
-                src="https://images.pexels.com/photos/904616/pexels-photo-904616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                src="images\signUpbg.jpg"
                 alt="cafe"
-                className=" w-full object-cover  h-full "
+                className=" w-full object-fill  h-full "
               />
             </div>
           </div>
 
-          <div className="flex w-[60%]  justify-center  items-center text-center bg-white">
+          <div className="flex w-[55%]  justify-center  items-center text-center bg-white">
             <form className="bg-white" onSubmit={handleSubmit}>
               <h1 className="text-yellow-700 font-bold text-2xl mb-1">MAYME</h1>
               <p className="text-sm font-normal text-gray-600 mb-7"></p>

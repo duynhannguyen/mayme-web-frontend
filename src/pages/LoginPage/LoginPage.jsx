@@ -67,43 +67,39 @@ const LoginPage = () => {
   }
   return (
     <div className="w-full h-full relative">
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <img
-            className="w-full max-h-screen opacity-10"
-            src="images/loginbg.jpg"
-            alt="background"
+      <img
+        className="w-full max-h-screen opacity-10"
+        src="images/loginbg.jpg"
+        alt="background"
+      />
+
+      <div className="display-flex text-center w-[440px] h-auto absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 bg-white text-black rounded-lg p-2">
+        <p className="Ali font-extrabold text-2xl mt-4 mb-2 text-yellow-700">
+          MAYME
+        </p>
+
+        <p className="text-xl mb-3 font-bold">Đăng nhập</p>
+        <form onSubmit={handleSubmit}>
+          {/* {error && <p className="text-red-500 my-1">{error}</p>} */}
+          <FieldTextInput
+            id="email"
+            name="email"
+            placeholder="Tên đăng nhập"
+            handleChange={handleChange}
           />
-
-          <div className="display-flex text-center w-[440px] h-auto absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 bg-white text-black rounded-lg p-2">
-            <p className="Ali font-extrabold text-2xl mt-4 mb-2 text-yellow-700">
-              MAYME
-            </p>
-
-            <p className="text-xl mb-3 font-bold">Đăng nhập</p>
-            <form onSubmit={handleSubmit}>
-              {/* {error && <p className="text-red-500 my-1">{error}</p>} */}
-              <FieldTextInput
-                id="email"
-                name="email"
-                placeholder="Tên đăng nhập"
-                handleChange={handleChange}
-              />
-              {errors.email && <CustomErrorMessage content={errors.email} />}
-              <FieldTextInput
-                placeholder="Mật khẩu"
-                id="password"
-                name="password"
-                type={"password"}
-                // showPassword={showPassword}
-                // value={showToggleIcon}
-                // setShowToggleIcon={setShowToggleIcon}
-                handleChange={handleChange}
-              />
-              <Button type="submit" name={"Đăng nhập"} />
-              {/* {showToggleIcon ? (
+          {errors.email && <CustomErrorMessage content={errors.email} />}
+          <FieldTextInput
+            placeholder="Mật khẩu"
+            id="password"
+            name="password"
+            type={"password"}
+            // showPassword={showPassword}
+            // value={showToggleIcon}
+            // setShowToggleIcon={setShowToggleIcon}
+            handleChange={handleChange}
+          />
+          <Button type="submit" name={"Đăng nhập"} />
+          {/* {showToggleIcon ? (
                   <span
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-[20px] bottom-[88px] cursor-pointer"
@@ -113,17 +109,15 @@ const LoginPage = () => {
                 ) : (
                     ""
                   )} */}
-            </form>
-            <Button
-              type="button"
-              name="X"
-              className="text-gray-500 text-2xl font-semibold"
-              style={{ position: "absolute", top: "0", right: "0" }}
-              onClick={handleClick}
-            />
-          </div>
-        </>
-      )}
+        </form>
+        <Button
+          type="button"
+          name="X"
+          className="text-gray-500 text-2xl font-semibold"
+          style={{ position: "absolute", top: "0", right: "0" }}
+          onClick={handleClick}
+        />
+      </div>
     </div>
   );
 };

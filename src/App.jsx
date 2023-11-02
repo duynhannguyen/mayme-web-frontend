@@ -1,7 +1,6 @@
 import "./index.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import SiteLayout from "./component/Layouts/SiteLayout/SiteLayout";
 
@@ -10,7 +9,7 @@ import SignupPage from "./pages/SignUpPage/SignupPage.jsx";
 
 import MainPage from "./pages/MainPage/MainPage.jsx"; //
 import MenuItem from "./pages/MenuItem/MenuItem.jsx";
-import Menu from "./pages/Menu/Menu.jsx";
+
 
 import ProtectedRoute from "./component/ProtectedRoute/ProtectedRoute.jsx";
 
@@ -18,9 +17,11 @@ import { useDispatch } from "react-redux";
 import { TOKEN_TYPES } from "./constant/constant";
 import AuthApi from "./services/authAPI";
 import { login } from "./redux/Auth/authSlice";
-import Menu2 from "./pages/Menu2/Menu2";
+
 import Order from "./pages/Order/Order";
+import Menu2 from "./pages/Menu2/Menu2";
 import ListMenu from "./pages/ListMenu/ListMenu.jsx";
+import { fetchDishList } from "./redux/DishList/dishListAction";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +35,6 @@ function App() {
         const payload = {
           user: currentUserData,
         };
-        console.log(currentUserData);
         dispatch(login(payload));
       } catch (error) {
         console.log("fetch-current-user-failed:", error);
@@ -51,7 +51,6 @@ function App() {
           <Route index element={<Home />} />
         </Route>
 
-        {/* <Route path="about" element={<Home />} /> */}
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route
@@ -60,8 +59,9 @@ function App() {
         />
         <Route path="menuitem" element={<MenuItem />} />
         <Route path="menuitem" element={<MenuItem />} />
-        <Route path="menu" element={<Menu />} />
-        <Route path="menu2" element={<Menu2 />} />
+        <Route path="listmenu" element={<ListMenu />} />
+        <Route path="menu2" element={<Menu2/>}/>
+
         <Route path="order" element={<Order />} />
         <Route path="listmenu" element={<ListMenu />} />
       </Routes>

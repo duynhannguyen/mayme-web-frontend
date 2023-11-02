@@ -100,15 +100,15 @@ const Order = () => {
           </div>
           <div className="relative">
             <button
-              className="bg-green-300 hover:bg-green-500 text-white py-3 px-6 rounded-full flex items-center transition duration-300"
+              className="bg-green-600 hover:bg-green-500 text-white py-3 px-6 rounded-full flex items-center transition duration-300"
               onMouseEnter={handleHover}
               onMouseLeave={handleMouseLeave}
             >
               <ShoppingCart size={18} color="white" />
-              <span className="text-white ml-2">Giỏ Hàng</span>
+              <span className="text-black ml-2">Giỏ Hàng</span>
             </button>
             {isHovered && (
-              <div className="absolute top-14 right-0 p-6 bg-white border border-gray-300 rounded-lg shadow-lg">
+              <div className="absolute top-14 right-0 p-6 bg-black border border-black-300 rounded-lg shadow-lg">
                 <h2 className="text-xl font-semibold mb-4">Giỏ Hàng</h2>
                 <ul>
                   {cartItems.map((item, index) => (

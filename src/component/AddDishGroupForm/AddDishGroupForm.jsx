@@ -1,27 +1,23 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchDishGroup } from "../../redux/DishGroup/DishGroupAction.js";
 import dishGroupApi from "../../services/dishGroupAPI.js";
-const AddForm = ({ closeMenuType }) => {
+const AddDishGroupForm = ({ closeMenuType }) => {
   const [dishGroup, setDishGroup] = useState("");
   const [loading, setLoading] = useState(false);
   const onHandleChange = (e) => {
     setDishGroup(e.target.value);
   };
-
+  const dispatch = useDispatch();
   const onHandleSubmit = async () => {
     try {
       setLoading(true);
-      console.log("group", dishGroup);
       const newDishGroup = {
-        loaiThucDon: dishGroup,
+        nhomHang: dishGroup,
       };
-      const response = await TypeMenuApi.create(newDishGroup);
-      console.log(response);
-      // const update = () => {
-      //   reload(Math.random());
-      // };
-      // update();
-      // refreshToGetData();
+      const response = await dishGroupApi.create(newDishGroup);
 
+      dispatch(fetchDishGroup());
       closeMenuType();
     } catch (error) {
       console.error(error);
@@ -34,7 +30,7 @@ const AddForm = ({ closeMenuType }) => {
     <div>
       <div className="col-span-2 bg-white on p-2 rounded on ">
         <label
-          htmlFor="loaiThucDon"
+          htmlFor="nhomHang"
           className="block text-sm font-medium leading-6"
         >
           Nhập nội dung
@@ -42,8 +38,8 @@ const AddForm = ({ closeMenuType }) => {
 
         <input
           type="text"
-          name="loaiThucDon"
-          id="loaiThucDon"
+          name="nhomHang"
+          id="nhomHang"
           value={dishGroup}
           onChange={onHandleChange}
           autoComplete="family-name"
@@ -71,4 +67,4 @@ const AddForm = ({ closeMenuType }) => {
   );
 };
 
-export default AddForm;
+export default AddDishGroupForm;

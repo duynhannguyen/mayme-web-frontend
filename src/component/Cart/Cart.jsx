@@ -17,8 +17,12 @@ const Cart = ({ cartItems, setShowCart, showCart, setCartItems }) => {
     setCartItems(newCardItem);
   };
   const checkOut = () => {
-    setCartItems([]);
-    setShowCart(false);
+    if (cartItems.length !== 0) {
+      setCartItems([]);
+      setShowCart(false);
+    } else {
+      return;
+    }
   };
 
   const calculateTotal = () => {
@@ -106,15 +110,6 @@ const Cart = ({ cartItems, setShowCart, showCart, setCartItems }) => {
                                       {item.quantity}
                                     </div>
 
-                                    {/* <input
-                                      className="text-gray-500 w-[50px] text-center border-2 "
-                                      type="number"
-                                      inputMode="numeric"
-                                      pattern="[0-9]*"
-                                      onChange={quantityInput}
-                                      value={item.quantity}
-                                    /> */}
-
                                     <div className="">
                                       <button
                                         type="button"
@@ -144,7 +139,11 @@ const Cart = ({ cartItems, setShowCart, showCart, setCartItems }) => {
                       <div className="mt-6">
                         <div
                           onClick={checkOut}
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          className={
+                            cartItems.length !== 0
+                              ? "flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                              : "flex items-center justify-center rounded-md border border-transparent bg-gray-300 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-400"
+                          }
                         >
                           Thanh toán
                         </div>

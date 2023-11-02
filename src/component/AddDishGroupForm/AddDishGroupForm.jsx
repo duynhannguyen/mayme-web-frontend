@@ -7,7 +7,6 @@ const AddDishGroupForm = ({ closeMenuType }) => {
   const [loading, setLoading] = useState(false);
   const onHandleChange = (e) => {
     setDishGroup(e.target.value);
-    console.log(dishGroup);
   };
   const dispatch = useDispatch();
   const onHandleSubmit = async () => {
@@ -16,7 +15,6 @@ const AddDishGroupForm = ({ closeMenuType }) => {
       const newDishGroup = {
         nhomHang: dishGroup,
       };
-      console.log(newDishGroup);
       const response = await dishGroupApi.create(newDishGroup);
 
       dispatch(fetchDishGroup());

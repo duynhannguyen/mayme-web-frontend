@@ -33,7 +33,6 @@ const MainPage = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.currentUser);
   const getDishList = useSelector((state) => state.dishList.dishList);
-  console.log(getDishList)
   const loadingState = useSelector((state) => state.dishList.loading);
   const onHandleLogout = () => {
     dispatch(logout());
@@ -117,30 +116,42 @@ const MainPage = () => {
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold text-yellow-600 ">Hàng Hoá</h1>
           <div className="flex gap-5">
-          <button
-            className="border-yellow-700 shadow-[0px_3px_8px_rgba(0,0,0,0.24)]  w-32 text-yellow-600 hover:bg-gray-300  hover:border-transparent font-semibold py-2 px-4 rounded"
-            onClick={handleMenuButtonClick}
-          >
-            Menu
-          </button>
-          <button
-            className="border-yellow-700 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] w-32 text-yellow-600 hover:bg-gray-300  hover:border-transparent font-semibold py-2 px-4 rounded"
-            onClick={handleButtonClick}
-          >
-            + Thêm Mới
-          </button>
+            <button
+              className="border-yellow-700 shadow-[0px_3px_8px_rgba(0,0,0,0.24)]  w-32 text-yellow-600 hover:bg-gray-300  hover:border-transparent font-semibold py-2 px-4 rounded"
+              onClick={handleMenuButtonClick}
+            >
+              Menu
+            </button>
+            <button
+              className="border-yellow-700 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] w-32 text-yellow-600 hover:bg-gray-300  hover:border-transparent font-semibold py-2 px-4 rounded"
+              onClick={handleButtonClick}
+            >
+              + Thêm Mới
+            </button>
           </div>
         </div>
 
         <table className="w-full shadow-[0px_3px_8px_rgba(0,0,0,0.24)] border-collapse border border-yellow-700">
           <thead>
             <tr className="border-yellow-700">
-              <th className="p-2 border border-yellow-700 text-yellow-600">Mã Hàng Hoá</th>
-              <th className="p-2 border border-yellow-700 text-yellow-600">Tên Hàng</th>
-              <th className="p-2 border border-yellow-700 text-yellow-600">Nhóm Hàng</th>
-              <th className="p-2 border border-yellow-700 text-yellow-600">Loại</th>
-              <th className="p-2 border border-yellow-700 text-yellow-600">Giá Bán</th>
-              <th className="p-2 border border-yellow-700 text-yellow-600">Giá Vốn</th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">
+                Mã Hàng Hoá
+              </th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">
+                Tên Hàng
+              </th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">
+                Nhóm Hàng
+              </th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">
+                Loại
+              </th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">
+                Giá Bán
+              </th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">
+                Giá Vốn
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -178,6 +189,6 @@ const MainPage = () => {
       )}
     </div>
   );
-}
+};
 
 export default MainPage;

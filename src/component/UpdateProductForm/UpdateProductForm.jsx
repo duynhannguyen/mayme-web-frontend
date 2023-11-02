@@ -123,7 +123,6 @@ const UpdateProductForm = ({
       return uploadDishImage;
     }
   };
-  // console.log("view", isShowPreviewImage());
 
   const { handleSubmit, handleChange, errors } = formik;
   return (

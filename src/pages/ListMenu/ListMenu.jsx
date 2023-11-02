@@ -11,9 +11,11 @@ const ListMenu = () => {
   const [showCart, setShowCart] = useState(false);
   const [currentMenu, setCurrentMenu] = useState("menu");
   const [cartItems, setCartItems] = useState([]);
+
   const dispatch = useDispatch();
   const getDishList = useSelector((state) => state.dishList.dishList);
   const uniqueTypes = [...new Set(getDishList.map((item) => item.loai))];
+
   useEffect(() => {
     dispatch(fetchDishList());
   }, []);
@@ -58,19 +60,15 @@ const ListMenu = () => {
   };
   const renderMenuItems = () => {
     let menuData = [];
-  
+
     if (currentMenu === "menu") {
       menuData = getDishList;
     } else {
       menuData = getDishList.filter((item) => item.loai === currentMenu);
     }
-  
+
     return menuData.map((item) => (
-      <Item
-        key={item._id}
-        {...item}
-        onAddToCart={handleAddToCart}
-      />
+      <Item key={item._id} {...item} onAddToCart={handleAddToCart} />
     ));
   };
   const handleShowQRCode = () => {
@@ -106,14 +104,14 @@ const ListMenu = () => {
               Menu
             </button>
             {uniqueTypes.map((type) => (
-            <button
-              key={type}
-              className="bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"
-              onClick={() => handleMenuClick(type)}
-            >
-              {type}
-            </button>
-          ))}
+              <button
+                key={type}
+                className="bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"
+                onClick={() => handleMenuClick(type)}
+              >
+                {type}
+              </button>
+            ))}
           </nav>
         </div>
         <div className="flex-1 px-2 sm:px-0">

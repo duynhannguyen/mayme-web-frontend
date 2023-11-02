@@ -9,7 +9,6 @@ export const fetchDishList = createAsyncThunk(
     try {
       const fetchDishList = await ProductAPI.get();
       const dishList = fetchDishList.data;
-      console.log("action", dishList);
       return fulfillWithValue(dishList);
     } catch (error) {
       console.log("fetch-dish-list", error);

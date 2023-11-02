@@ -16,7 +16,6 @@ const ProductAPI = {
   },
   update: (body, id) => {
     const url = `/mainpage/menu/${id}`;
-    console.log("body", body);
     return api.put(url, body);
   },
 };

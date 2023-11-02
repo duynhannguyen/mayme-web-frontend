@@ -19,7 +19,6 @@ const typeMenuSlice = createSlice({
       })
       .addCase(fetchTypeMenu.fulfilled, (state, { payload }) => {
         state.typeMenu = payload;
-        console.log("payload", payload);
         state.fetchTypeMenuPending = false;
       })
       .addCase(fetchTypeMenu.rejected, (state, { payload }) => {

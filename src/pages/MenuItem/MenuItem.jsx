@@ -55,17 +55,14 @@ const MenuItem = ({
         formData.append("hinhAnh", selectedFile);
         formData.append("body", JSON.stringify(values));
         const response = await ProductAPI.update(formData, id);
-        console.log(response.data);
         dispatch(fetchDishList());
         setShowUpdateFrom(false);
       } else {
         const newValues = { ...values, hinhAnh: hinhAnh };
-        console.log(newValues);
         const formData = new FormData();
 
         formData.append("body", JSON.stringify(values));
         const response = await ProductAPI.update(formData, id);
-        console.log(response.data);
         dispatch(fetchDishList());
         setShowUpdateFrom(false);
       }

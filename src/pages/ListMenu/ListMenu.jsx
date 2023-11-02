@@ -5,6 +5,7 @@ import {
   CloseOutlined,
   QrcodeOutlined,
   ShoppingCartOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import QRCode from "qrcode";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +17,7 @@ const ListMenu = () => {
   const [currentMenu, setCurrentMenu] = useState("menu");
   const [cartItems, setCartItems] = useState([]);
   const [QrcodeImage, setQrcodeImage] = useState("");
+  const [showMenuBar, setShowMenuBar] = useState(false);
   const dispatch = useDispatch();
   const getDishList = useSelector((state) => state.dishList.dishList);
   const tenNhaHang = useSelector((state) => state.auth.currentUser.tenNhaHang);
@@ -51,7 +53,9 @@ const ListMenu = () => {
       };
     }
   };
-
+  const onShowMenuBar = () => {
+    setShowMenuBar(!showMenuBar);
+  };
   const handleMenuClick = (menu) => {
     setCurrentMenu(menu);
   };
@@ -80,37 +84,52 @@ const ListMenu = () => {
     <div className="bg-gray-900  flex items-center justify-center relative">
       <div className="bg-gray-800 min-h-screen flex-1 flex flex-col space-y-5 lg:space-y-0 lg:flex-row lg:space-x-10 max-w-6xl sm:p-6 sm:my-2 sm:mx-4 sm:rounded-2xl">
         <div className="bg- px-2 lg:px-4 py-2 lg:py-10 sm:rounded-xl flex lg:flex-col justify-between">
-          <nav className="flex items-center flex-row space-x-2 lg:space-x-0 lg:flex-col lg:space-y-2">
-            <button
-              className="bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"
-              onClick={() => handleMenuClick("menu")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 sm:h-6 sm:w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-              Menu
-            </button>
-            {uniqueTypes.map((type) => (
+          <div className=" sm:block hidden">
+            <nav className="   flex items-center flex-row space-x-2 lg:space-x-0 lg:flex-col lg:space-y-2  ">
               <button
-                key={type}
-                className="bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"
-                onClick={() => handleMenuClick(type)}
+                className="bg-gray-800 text-white p-4 flex justify-center items-center gap-2 rounded-md"
+                onClick={() => handleMenuClick("menu")}
               >
-                {type}
+                <MenuOutlined />
+                Menu
               </button>
-            ))}
-          </nav>
+              {uniqueTypes.map((type) => (
+                <button
+                  key={type}
+                  className="bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"
+                  onClick={() => handleMenuClick(type)}
+                >
+                  {type}
+                </button>
+              ))}
+            </nav>
+          </div>
+          <div className="sm:hidden w-full relative  ">
+            <MenuOutlined
+              className="text-2xl  text-white
+            "
+              onClick={onShowMenuBar}
+            />
+            {showMenuBar && (
+              <div className=" absolute top-8  px-1 bg-black bg-opacity-50 flex items-start flex-col   ">
+                <div
+                  className=" text-white w-full border-b-2 border-gray-200 p-2 flex justify-start items-center gap-2 hover:text-gray-500"
+                  onClick={() => handleMenuClick("menu")}
+                >
+                  Menu
+                </div>
+                {uniqueTypes.map((type) => (
+                  <div
+                    key={type}
+                    className=" text-white w-full border-b-2 p-2 border-gray-200 inline-flex justify-start  hover:text-gray-500"
+                    onClick={() => handleMenuClick(type)}
+                  >
+                    {type}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex-1 px-2 sm:px-0">
           <div className="flex justify-between items-center">

@@ -10,7 +10,10 @@ const Item = ({
   onAddToCart,
 }) => {
   return (
-    <div id={_id} className="p-4 rounded-lg shadow-md bg-gray-900 text-white">
+    <div
+      id={_id}
+      className="p-4 w-auto rounded-lg shadow-md bg-gray-900 text-white"
+    >
       <img
         src={hinhAnh}
         alt={tenHang}

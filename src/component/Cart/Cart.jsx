@@ -28,7 +28,8 @@ const Cart = ({ cartItems, setShowCart, showCart, setCartItems }) => {
   const calculateTotal = () => {
     let total = 0;
     cartItems.forEach((item) => {
-      total += item.giaBan * item.quantity;
+      const price = item.giaBan.replace(/₫/g, "");
+      total += +price * item.quantity;
     });
     return total;
   };
@@ -73,7 +74,6 @@ const Cart = ({ cartItems, setShowCart, showCart, setCartItems }) => {
                             onClick={() => closeCart()}
                           >
                             <span className="absolute -inset-0.5" />
-                            {/* <span className="sr-only">Close panel</span> */}
                             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                           </button>
                         </div>
@@ -131,7 +131,7 @@ const Cart = ({ cartItems, setShowCart, showCart, setCartItems }) => {
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Tạm tính</p>
-                        <p>{calculateTotal().toFixed(2)} vnđ</p>
+                        <p>{calculateTotal().toFixed(3)}₫</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Phí vận chuyển và thuế đã được tính vào.

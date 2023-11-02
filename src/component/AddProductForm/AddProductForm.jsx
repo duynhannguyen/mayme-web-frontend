@@ -19,20 +19,10 @@ const AddProductForm = ({
   uploading,
 }) => {
   const [showMenuFormType, setShowMenuFormType] = useState(false);
-  const [reload, setReload] = useState(null);
-  const [giaBan, setGiaBan] = useState("");
-  const [giaVon, setGiaVon] = useState("");
-
-  const handleChangeOn1 = (event) => {
-    const value = event.target.value;
-    const formattedValue = formatCurrency(value);
-    setGiaVon(formattedValue);
-  };
-
   const handleChangeOn = (event) => {
-    const value = event.target.value;
+    const { value, name } = event.target;
     const formattedValue = formatCurrency(value);
-    setGiaBan(formattedValue);
+    setFieldValue(name, formattedValue);
   };
 
   const formatCurrency = (value) => {
@@ -65,7 +55,7 @@ const AddProductForm = ({
 
   useEffect(() => {
     fetchData();
-  }, [reload]);
+  }, []);
   const closeMenuType = () => {
     setShowMenuFormType(false);
   };
@@ -84,9 +74,9 @@ const AddProductForm = ({
     validationSchema: productValidationSchema.addProduct,
   });
   const previewDishImage = (
-    <div className="w-[500px] h-[100px]  relative">
+    <div className="w-[150px] h-[150px]  relative">
       <img
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
         src={previewImage}
         alt="Preview dish image"
       />
@@ -123,7 +113,7 @@ const AddProductForm = ({
       <p className="text-xs leading-5">PNG, JPG, GIF</p>
     </div>
   );
-  const { handleSubmit, handleChange, errors } = formik;
+  const { handleSubmit, handleChange, errors, setFieldValue } = formik;
 
   return (
     <form className="bg-white px-10 pt-6" onSubmit={handleSubmit}>
@@ -174,8 +164,8 @@ const AddProductForm = ({
               type="text"
               name="giaVon"
               id="giaVon"
-              value={giaVon}
-              onChange={handleChangeOn1}
+              value={formik.values.giaVon}
+              onChange={handleChangeOn}
               autoComplete="off"
               className={
                 errors.giaVon
@@ -220,7 +210,7 @@ const AddProductForm = ({
               type="text"
               name="giaBan"
               id="giaBan"
-              value={giaBan}
+              value={formik.values.giaBan}
               onChange={handleChangeOn}
               autoComplete="off"
               className={

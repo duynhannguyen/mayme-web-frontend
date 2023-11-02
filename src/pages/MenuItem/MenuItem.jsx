@@ -112,7 +112,7 @@ const MenuItem = ({
             <div className="bigger-text ">Mã hàng hoá: {maHangHoa}</div>
             <div className="bigger-text mt-5">Loại thực đơn: {loai}</div>
             <div className="bigger-text mt-5">Nhóm hàng: {nhomHang}</div>
-            {/* <div className="bigger-text mt-5 ">Loại hàng: Hàng hoá</div> */}
+            <div className="bigger-text mt-5 ">Giá vốn: {giaVon}</div>
             <div className="bigger-text mt-5 ">Giá bán: {giaBan}</div>
           </div>
         </div>

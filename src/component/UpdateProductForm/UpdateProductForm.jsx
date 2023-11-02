@@ -63,6 +63,24 @@ const UpdateProductForm = ({
     setDishValue({ ...dishValue, hinhAnh: null });
     setPreviewImage(null);
   };
+  const handleChangeOn = (event) => {
+    const { value, name } = event.target;
+    const formattedValue = formatCurrency(value);
+    setFieldValue(name, formattedValue);
+  };
+
+  const formatCurrency = (value) => {
+    const number = parseInt(value.replace(/\D/g, ""), 10);
+    if (isNaN(number)) return "";
+
+    const formatter = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+      minimumFractionDigits: 0,
+    });
+
+    return formatter.format(number);
+  };
   const previewDishImage = (
     <div className="w-[500px] h-[300px]  relative">
       <input
@@ -124,7 +142,7 @@ const UpdateProductForm = ({
     }
   };
 
-  const { handleSubmit, handleChange, errors } = formik;
+  const { handleSubmit, handleChange, errors, setFieldValue } = formik;
   return (
     <form className="bg-white px-10 pt-6" onSubmit={handleSubmit}>
       {uploading && <Loading />}
@@ -170,8 +188,7 @@ const UpdateProductForm = ({
               type="text"
               name="giaVon"
               id="giaVon"
-              // value={formik.values.giaVon}
-              onChange={handleChange}
+              onChange={handleChangeOn}
               autoComplete="family-name"
               value={formik.values.giaVon}
               className={
@@ -218,7 +235,7 @@ const UpdateProductForm = ({
               name="giaBan"
               id="giaBan"
               value={formik.values.giaBan}
-              onChange={handleChange}
+              onChange={handleChangeOn}
               autoComplete="family-name"
               className={
                 errors.giaBan

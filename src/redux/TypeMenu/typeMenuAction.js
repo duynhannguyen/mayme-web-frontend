@@ -9,6 +9,7 @@ export const fetchTypeMenu = createAsyncThunk(
     try {
       const getTypeMenu = await TypeMenuApi.get();
       const typeMenu = getTypeMenu.data;
+      console.log("action-type-menu", typeMenu);
       return fulfillWithValue(typeMenu);
     } catch (error) {
       console.log("fetch-type-menu-failed", error);

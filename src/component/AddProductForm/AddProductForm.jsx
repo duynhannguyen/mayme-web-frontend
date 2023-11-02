@@ -19,6 +19,8 @@ const AddProductForm = ({
   uploading,
 }) => {
   const [showMenuFormType, setShowMenuFormType] = useState(false);
+  const [showDishGroupForm, setShowDishGroupForm] = useState(false);
+
   const handleChangeOn = (event) => {
     const { value, name } = event.target;
     const formattedValue = formatCurrency(value);
@@ -39,6 +41,12 @@ const AddProductForm = ({
   };
   const showMenuType = () => {
     setShowMenuFormType(!showMenuFormType);
+  };
+  const showDishGroup = () => {
+    setShowDishGroupForm(!showDishGroupForm);
+  };
+  const closeDishGroup = () => {
+    setShowDishGroupForm(false);
   };
   const dispatch = useDispatch();
   const getTypeMenu = useSelector((state) => state.typeMenu.typeMenu);
@@ -267,14 +275,14 @@ const AddProductForm = ({
           <button
             type="button"
             className=" text-green-600 text-2xl p-0 px-4 ml-5"
-            onClick={showMenuType}
+            onClick={showDishGroup}
           >
             +
           </button>
         </label>
-        {showMenuFormType && (
+        {showDishGroupForm && (
           <div className="fixed top-0 left-0 right-0 bottom-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-50">
-            <AddDishGroupForm closeMenuType={closeMenuType} />
+            <AddDishGroupForm closeDishGroup={closeDishGroup} />
           </div>
         )}
         <div className="mt-2">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTypeMenu } from "../../redux/TypeMenu/typeMenuAction";
 import TypeMenuApi from "../../services/typeMenuAPI";
-const AddDishGroupForm = ({ closeMenuType, refreshToGetData, setReload }) => {
+const AddForm = ({ closeMenuType }) => {
   const [typeMenu, setTypeMenu] = useState("");
   const [loading, setLoading] = useState(false);
   const onHandleChange = (e) => {
@@ -15,7 +15,9 @@ const AddDishGroupForm = ({ closeMenuType, refreshToGetData, setReload }) => {
       const newTypeMenu = {
         loaiThucDon: typeMenu,
       };
+      console.log("newTypeMenu", newTypeMenu);
       const response = await TypeMenuApi.create(newTypeMenu);
+      console.log("menuType", response.data);
       dispatch(fetchTypeMenu());
 
       closeMenuType();
@@ -43,7 +45,7 @@ const AddDishGroupForm = ({ closeMenuType, refreshToGetData, setReload }) => {
           value={typeMenu}
           onChange={onHandleChange}
           autoComplete="family-name"
-          className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          className="block w-full rounded-md border-0 py-1.5 pl-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         />
 
         <div className="mt-6 mb-6  flex items-center justify-end gap-x-6">
@@ -67,4 +69,4 @@ const AddDishGroupForm = ({ closeMenuType, refreshToGetData, setReload }) => {
   );
 };
 
-export default AddDishGroupForm;
+export default AddForm;

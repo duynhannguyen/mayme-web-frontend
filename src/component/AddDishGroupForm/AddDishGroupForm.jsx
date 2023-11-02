@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchDishGroup } from "../../redux/DishGroup/DishGroupAction.js";
 import dishGroupApi from "../../services/dishGroupAPI.js";
-const AddDishGroupForm = ({ closeMenuType }) => {
+const AddDishGroupForm = ({ closeDishGroup }) => {
   const [dishGroup, setDishGroup] = useState("");
   const [loading, setLoading] = useState(false);
   const onHandleChange = (e) => {
@@ -18,7 +18,7 @@ const AddDishGroupForm = ({ closeMenuType }) => {
       const response = await dishGroupApi.create(newDishGroup);
 
       dispatch(fetchDishGroup());
-      closeMenuType();
+      closeDishGroup();
     } catch (error) {
       console.error(error);
     } finally {
@@ -43,13 +43,13 @@ const AddDishGroupForm = ({ closeMenuType }) => {
           value={dishGroup}
           onChange={onHandleChange}
           autoComplete="family-name"
-          className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          className="block w-full rounded-md border-0 py-1.5 pl-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
         />
 
         <div className="mt-6 mb-6  flex items-center justify-end gap-x-6">
           <button
             type="button"
-            onClick={closeMenuType}
+            onClick={closeDishGroup}
             className="text-sm font-semibold leading-6"
           >
             Hủy

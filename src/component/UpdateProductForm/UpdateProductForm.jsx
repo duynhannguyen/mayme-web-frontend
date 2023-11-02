@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { useFormik } from "formik";
-import AddForm from "../AddForm/AddForm";
 import AddDishGroupForm from "../AddDishGroupForm/AddDishGroupForm.jsx";
 import productValidationSchema from "../../validationSchema/product.validation.js";
 import CustomErrorMessage from "../CustomErrorMessage/CustomErrorMessage.jsx";
@@ -10,6 +9,8 @@ import Loading from "../Loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTypeMenu } from "../../redux/TypeMenu/typeMenuAction";
 import { fetchDishGroup } from "../../redux/DishGroup/DishGroupAction";
+import AddForm from "../AddForm/AddForm.jsx";
+
 const UpdateProductForm = ({
   onSubmitHandler,
   onHandleCloseForm,
@@ -20,10 +21,14 @@ const UpdateProductForm = ({
   setPreviewImage,
 }) => {
   const [showMenuFormType, setShowMenuFormType] = useState(false);
+  const [showDishGroupForm, setShowDishGroupForm] = useState(false);
   const [reload, setReload] = useState(null);
   const [dishValue, setDishValue] = useState(dishInfo);
   const showMenuType = () => {
     setShowMenuFormType(!showMenuFormType);
+  };
+  const showDishGroup = () => {
+    setShowDishGroupForm(!showDishGroupForm);
   };
   const dispatch = useDispatch();
   const getTypeMenu = useSelector((state) => state.typeMenu.typeMenu);
@@ -43,6 +48,9 @@ const UpdateProductForm = ({
   }, []);
   const closeMenuType = () => {
     setShowMenuFormType(false);
+  };
+  const closeDishGroup = () => {
+    setShowDishGroupForm(false);
   };
   const formik = useFormik({
     initialValues: {
@@ -247,7 +255,7 @@ const UpdateProductForm = ({
         </div>
 
         <label
-          htmlFor="loai"
+          htmlFor="loaiThucDon"
           className="block text-sm font-medium leading-6 relative"
         >
           Loại thực đơn{" "}
@@ -292,14 +300,14 @@ const UpdateProductForm = ({
           <button
             type="button"
             className=" text-green-600 text-2xl p-0 px-4 ml-5"
-            onClick={showMenuType}
+            onClick={showDishGroup}
           >
             +
           </button>
         </label>
-        {showMenuFormType && (
+        {showDishGroupForm && (
           <div className="fixed top-0 left-0 right-0 bottom-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-50">
-            <AddDishGroupForm closeMenuType={closeMenuType} />
+            <AddDishGroupForm closeDishGroup={closeDishGroup} />
           </div>
         )}
         <div className="mt-2">

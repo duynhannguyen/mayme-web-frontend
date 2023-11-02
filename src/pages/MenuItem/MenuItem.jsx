@@ -91,15 +91,15 @@ const MenuItem = ({
   return (
     <div className="">
       <div className="">
-        <div className="container mx-auto px-8 py-4 bg-green-100">
+        <div className="container mx-auto px-8 py-4 ">
           <div className=" flex justify-start gap-10 ">
-            <div className="mr-2 text-green-700">Thông tin</div>
-            <div className="mr-2">Thẻ kho</div>
-            <div className="mr-2">Tồn kho</div>
-            <div className="mr-2">Món thêm</div>
+            <div className="mr-2 text-yellow-700">Thông tin</div>
+            <div className="mr-2 text-yellow-700">Thẻ kho</div>
+            <div className="mr-2 text-yellow-700">Tồn kho</div>
+            <div className="mr-2 text-yellow-700">Món thêm</div>
           </div>
         </div>
-        <div className="px-8 py-4 text-2xl text-yellow-700" id={id}>
+        <div className="px-8 py-4 text-2xl text-yellow-700 " id={id}>
           {tenHang}
         </div>
         <div className="  flex  items-center px-8   gap-20  ">

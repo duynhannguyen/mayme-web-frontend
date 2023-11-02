@@ -98,7 +98,7 @@ const MainPage = () => {
 
           <h1 className="text-xl font-bold text-yellow-700">MAYME</h1>
         </div>
-        <div className=" border-2 border-yellow-700 w-auto p-2 rounded-2xl flex items-center hover:bg-amber-700 transition-all duration-300 relative group cursor-default justify-center text-lg ">
+        <div className=" border-2 border-yellow-700 w-auto p-2 rounded-2xl flex items-center hover:bg-yellow-500 transition-all duration-300 relative group cursor-default justify-center text-lg ">
           <div className="text-right mr-2">{currentUser.tenNhaHang}</div>
           <UserOutlined />
           <ul className="p-2 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] w-[150px] h-auto rounded-md opacity-0  group-hover:opacity-100 transition-all duration-300  absolute -bottom-[90%] z-10 text-black text-[13px] bg-white">
@@ -115,24 +115,32 @@ const MainPage = () => {
 
       <div className="container mx-auto px-8 py-4">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">Hàng Hoá</h1>
+          <h1 className="text-2xl font-bold text-yellow-600 ">Hàng Hoá</h1>
+          <div className="flex gap-5">
           <button
-            className="bg-green-500 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] hover:bg-green-600 text-white font-semibold py-2 px-4 rounded"
+            className="border-yellow-700 shadow-[0px_3px_8px_rgba(0,0,0,0.24)]  w-32 text-yellow-600 hover:bg-gray-300  hover:border-transparent font-semibold py-2 px-4 rounded"
+            onClick={handleMenuButtonClick}
+          >
+            Menu
+          </button>
+          <button
+            className="border-yellow-700 shadow-[0px_3px_8px_rgba(0,0,0,0.24)] w-32 text-yellow-600 hover:bg-gray-300  hover:border-transparent font-semibold py-2 px-4 rounded"
             onClick={handleButtonClick}
           >
             + Thêm Mới
           </button>
+          </div>
         </div>
 
-        <table className="w-full shadow-[0px_3px_8px_rgba(0,0,0,0.24)] border-collapse border border-green-500">
+        <table className="w-full shadow-[0px_3px_8px_rgba(0,0,0,0.24)] border-collapse border border-yellow-700">
           <thead>
-            <tr className="bg-green-100">
-              <th className="p-2 border border-green-500">Mã Hàng Hoá</th>
-              <th className="p-2 border border-green-500">Tên Hàng</th>
-              <th className="p-2 border border-green-500">Nhóm Hàng</th>
-              <th className="p-2 border border-green-500">Loại</th>
-              <th className="p-2 border border-green-500">Giá Bán</th>
-              <th className="p-2 border border-green-500">Giá Vốn</th>
+            <tr className="border-yellow-700">
+              <th className="p-2 border border-yellow-700 text-yellow-600">Mã Hàng Hoá</th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">Tên Hàng</th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">Nhóm Hàng</th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">Loại</th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">Giá Bán</th>
+              <th className="p-2 border border-yellow-700 text-yellow-600">Giá Vốn</th>
             </tr>
           </thead>
           <tbody>

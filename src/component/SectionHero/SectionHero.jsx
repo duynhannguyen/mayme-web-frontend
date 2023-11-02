@@ -34,26 +34,24 @@ const SectionHero = () => {
           </motion.h1>
           <br />
           <motion.div
-            className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              className="px-8 py-3 text-lg font-semibold dark:text-gray-900 rounded-full"
-            >
-              Dùng thử miễn phí
-            </a>
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              className="px-8 py-3 text-lg font-semibold border dark:border-gray-100 rounded-full"
-            >
-              Khám phá
-            </a>
-          </motion.div>
+  className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start"
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: 0.4 }}
+>
+  <a
+    rel="noopener noreferrer"
+    className="px-8 py-3 text-xl font-semibold  text-yellow-700 rounded-full  border-2 border-yellow-700 hover:bg-yellow-700 hover:text-white transition duration-300"
+  >
+    Dùng thử miễn phí
+  </a>
+  <a
+  rel="noopener noreferrer"
+  className="px-8 py-3 text-xl font-semibold rounded-full border-2 hover:border-yellow-700 hover:text-white bg-yellow-700 text-white transition duration-300"
+>
+  Khám phá
+</a>
+</motion.div>
         </div>
       </div>
     </motion.section>

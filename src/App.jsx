@@ -10,7 +10,6 @@ import SignupPage from "./pages/SignUpPage/SignupPage.jsx";
 import MainPage from "./pages/MainPage/MainPage.jsx"; //
 import MenuItem from "./pages/MenuItem/MenuItem.jsx";
 
-
 import ProtectedRoute from "./component/ProtectedRoute/ProtectedRoute.jsx";
 
 import { useDispatch } from "react-redux";
@@ -57,12 +56,7 @@ function App() {
           path="mainpage"
           element={<ProtectedRoute component={MainPage} />}
         />
-        <Route path="menuitem" element={<MenuItem />} />
-        <Route path="menuitem" element={<MenuItem />} />
-        <Route path="listmenu" element={<ListMenu />} />
-        <Route path="menu2" element={<Menu2/>}/>
 
-        <Route path="order" element={<Order />} />
         <Route path="listmenu" element={<ListMenu />} />
       </Routes>
     </Router>

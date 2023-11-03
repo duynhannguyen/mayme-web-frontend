@@ -1,7 +1,7 @@
 import axios from "axios";
 import { TOKEN_TYPES } from "../constant/constant.js";
 
-const BASE_API_URL = "http://localhost:3001/api/v1";
+const BASE_API_URL = "https://mayme-backend.onrender.com";
 
 const api = axios.create({
   baseURL: BASE_API_URL,

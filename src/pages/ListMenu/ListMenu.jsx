@@ -22,7 +22,7 @@ const ListMenu = () => {
   const getDishList = useSelector((state) => state.dishList.dishList);
   const tenNhaHang = useSelector((state) => state.auth.currentUser.tenNhaHang);
   const uniqueTypes = [...new Set(getDishList.map((item) => item.loai))];
-
+  const [cartItemCount, setCartItemCount] = useState(0);
   useEffect(() => {
     dispatch(fetchDishList());
   }, []);
@@ -38,12 +38,10 @@ const ListMenu = () => {
 
   const handleAddToCart = (id) => {
     const existingItem = getDishList.find((item) => item._id === id);
-    const existingItemIndex = cartItems.findIndex(
-      (cartItem) => cartItem._id === id
-    );
+    const existingItemIndex = cartItems.findIndex((cartItem) => cartItem._id === id);
+  
     if (existingItemIndex === -1) {
       const addQuantityToItem = { ...existingItem, quantity: 1 };
-
       const updateCartItems = [...cartItems, addQuantityToItem];
       setCartItems(updateCartItems);
     } else {
@@ -52,6 +50,8 @@ const ListMenu = () => {
         quantity: cartItems[existingItemIndex].quantity + 1,
       };
     }
+  
+    setCartItemCount(cartItemCount + 1);
   };
   const onShowMenuBar = () => {
     setShowMenuBar(!showMenuBar);
@@ -151,10 +151,15 @@ const ListMenu = () => {
                 className="bg-white w-[50px] h-[50px] text-center text-2xl text-gray-600  rounded-md hover:text-gray-900 smooth-hover"
                 onClick={handleShowCart}
               >
-                <ShoppingCartOutlined
-                  className="mx-[25%] my-[25%]
-                "
-                />
+               <div className="relative">
+    <ShoppingCartOutlined className="mx-[25%] my-[25%]" />
+    {cartItemCount > 0 && (
+      <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-gray-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+        {cartItemCount}
+      </span>
+    )}
+  </div>
+                
               </div>
             </div>
           </div>
@@ -189,6 +194,7 @@ const ListMenu = () => {
             setShowCart={setShowCart}
             showCart={showCart}
             setCartItems={setCartItems}
+            setCartItemCount={setCartItemCount}
           />
         </div>
       )}

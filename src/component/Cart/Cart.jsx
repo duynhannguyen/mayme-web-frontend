@@ -2,24 +2,29 @@ import React from "react";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-const Cart = ({ cartItems, setShowCart, showCart, setCartItems }) => {
+const Cart = ({ cartItems, setShowCart, showCart, setCartItems ,cartItemCount, setCartItemCount }) => {
   const [open, setOpen] = useState(true);
   const closeCart = () => {
     setOpen(!open);
     setShowCart(!showCart);
     setCartItems([]);
+    setCartItemCount(0);
   };
   const continueOrder = () => {
     setShowCart(!showCart);
   };
   const removeItem = (id) => {
-    const newCardItem = cartItems.filter((item) => item._id !== id);
-    setCartItems(newCardItem);
+    const newCartItems = cartItems.filter((item) => item._id !== id);
+    setCartItems(newCartItems);
+    
+    const newCartItemCount = newCartItems.reduce((total, item) => total + item.quantity, 0);
+    setCartItemCount(newCartItemCount);
   };
   const checkOut = () => {
     if (cartItems.length !== 0) {
       setCartItems([]);
       setShowCart(false);
+      setCartItemCount(0);
     } else {
       return;
     }

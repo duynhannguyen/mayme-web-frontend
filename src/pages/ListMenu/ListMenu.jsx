@@ -28,19 +28,16 @@ const ListMenu = () => {
     fetchCurrentUser();
   }, []);
   const fetchCurrentUser = async () => {
-    const accessToken = localStorage.getItem(TOKEN_TYPES.ACCESS_TOKEN);
-    if (accessToken) {
-      try {
-        const currentUser = await AuthApi.fetchCurrentUser();
-        const currentUserData = currentUser.data;
-        const payload = {
-          user: currentUserData,
-        };
-        dispatch(login(payload));
-        dispatch(fetchDishList());
-      } catch (error) {
-        console.log("fetch-current-user-failed:", error);
-      }
+    try {
+      const currentUser = await AuthApi.fetchCurrentUser();
+      const currentUserData = currentUser.data;
+      const payload = {
+        user: currentUserData,
+      };
+      dispatch(login(payload));
+      dispatch(fetchDishList());
+    } catch (error) {
+      console.log("fetch-current-user-failed:", error);
     }
   };
   const url = window.location.href;

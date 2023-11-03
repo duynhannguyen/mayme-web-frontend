@@ -32,7 +32,6 @@ const ListMenu = () => {
     try {
       const currentUser = await AuthApi.fetchCurrentUser();
       const currentUserData = currentUser.data;
-      console.log(currentUserData);
       const payload = {
         user: currentUserData,
       };

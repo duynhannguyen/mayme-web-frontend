@@ -25,8 +25,24 @@ const ListMenu = () => {
   const uniqueTypes = [...new Set(getDishList.map((item) => item.loai))];
   const [cartItemCount, setCartItemCount] = useState(0);
   useEffect(() => {
-    dispatch(fetchDishList());
+    fetchCurrentUser();
   }, []);
+  const fetchCurrentUser = async () => {
+    const accessToken = localStorage.getItem(TOKEN_TYPES.ACCESS_TOKEN);
+    if (accessToken) {
+      try {
+        const currentUser = await AuthApi.fetchCurrentUser();
+        const currentUserData = currentUser.data;
+        const payload = {
+          user: currentUserData,
+        };
+        dispatch(login(payload));
+        dispatch(fetchDishList());
+      } catch (error) {
+        console.log("fetch-current-user-failed:", error);
+      }
+    }
+  };
   const url = window.location.href;
   const generateQR = () => {
     return QRCode.toDataURL(url, { width: 300 }, (error, url) => {

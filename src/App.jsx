@@ -57,7 +57,7 @@ function App() {
           element={<ProtectedRoute component={MainPage} />}
         />
 
-        <Route path="listmenu" element={<ListMenu />} />
+        <Route path="listmenu/:id" element={<ListMenu />} />
       </Routes>
     </Router>
   );

@@ -34,6 +34,7 @@ const MainPage = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const getDishList = useSelector((state) => state.dishList.dishList);
   const loadingState = useSelector((state) => state.dishList.loading);
+  const id = useSelector((state) => state.auth.currentUser._id);
   const onHandleLogout = () => {
     dispatch(logout());
     navigate("/");
@@ -81,7 +82,7 @@ const MainPage = () => {
 
   const handleMenuButtonClick = () => {
     // Navigate to the ListMenu page
-    navigate("/listmenu");
+    navigate(`/listmenu/${id}`);
   };
   const handleBackToHome = () => {
     navigate("/");

@@ -11,6 +11,7 @@ import QRCode from "qrcode";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDishList } from "../../redux/DishList/dishListAction";
 import Cart from "../../component/Cart/Cart";
+import { useParams } from "react-router-dom";
 const ListMenu = () => {
   const [showQRCode, setShowQRCode] = useState(false);
   const [showCart, setShowCart] = useState(false);
@@ -38,8 +39,10 @@ const ListMenu = () => {
 
   const handleAddToCart = (id) => {
     const existingItem = getDishList.find((item) => item._id === id);
-    const existingItemIndex = cartItems.findIndex((cartItem) => cartItem._id === id);
-  
+    const existingItemIndex = cartItems.findIndex(
+      (cartItem) => cartItem._id === id
+    );
+
     if (existingItemIndex === -1) {
       const addQuantityToItem = { ...existingItem, quantity: 1 };
       const updateCartItems = [...cartItems, addQuantityToItem];
@@ -50,7 +53,7 @@ const ListMenu = () => {
         quantity: cartItems[existingItemIndex].quantity + 1,
       };
     }
-  
+
     setCartItemCount(cartItemCount + 1);
   };
   const onShowMenuBar = () => {
@@ -151,15 +154,14 @@ const ListMenu = () => {
                 className="bg-white w-[50px] h-[50px] text-center text-2xl text-gray-600  rounded-md hover:text-gray-900 smooth-hover"
                 onClick={handleShowCart}
               >
-               <div className="relative">
-    <ShoppingCartOutlined className="mx-[25%] my-[25%]" />
-    {cartItemCount > 0 && (
-      <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-gray-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-        {cartItemCount}
-      </span>
-    )}
-  </div>
-                
+                <div className="relative">
+                  <ShoppingCartOutlined className="mx-[25%] my-[25%]" />
+                  {cartItemCount > 0 && (
+                    <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-gray-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                      {cartItemCount}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>

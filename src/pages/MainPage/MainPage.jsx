@@ -72,9 +72,11 @@ const MainPage = () => {
   const onHandleCloseForm = () => {
     setShowAddProductForm(false);
     setPreviewImage(null);
+    setSelectedFile(null);
   };
   const cancelPreviewImage = () => {
     setPreviewImage(null);
+    setSelectedFile(null);
   };
   const handleButtonClick = () => {
     setShowAddProductForm(true);

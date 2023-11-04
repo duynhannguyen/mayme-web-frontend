@@ -11,7 +11,8 @@ import QRCode from "qrcode";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDishList } from "../../redux/DishList/dishListAction";
 import Cart from "../../component/Cart/Cart";
-import { useParams } from "react-router-dom";
+import AuthApi from "../../services/authAPI";
+import { login } from "../../redux/Auth/authSlice";
 const ListMenu = () => {
   const [showQRCode, setShowQRCode] = useState(false);
   const [showCart, setShowCart] = useState(false);
@@ -31,6 +32,7 @@ const ListMenu = () => {
     try {
       const currentUser = await AuthApi.fetchCurrentUser();
       const currentUserData = currentUser.data;
+      console.log(currentUserData);
       const payload = {
         user: currentUserData,
       };

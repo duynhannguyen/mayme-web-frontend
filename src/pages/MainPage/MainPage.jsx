@@ -16,8 +16,21 @@ const MainPage = () => {
   const [uploading, setUploading] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const navigate = useNavigate();
+  const fetchCurrentUser = async () => {
+    try {
+      const currentUser = await ProductAPI.getUserByid(id);
+      const currentUserData = currentUser.data;
+      const payload = {
+        user: currentUserData,
+      };
+
+      dispatch(fetchDishList(payload));
+    } catch (error) {
+      console.log("fetch-current-user-failed:", error);
+    }
+  };
   useEffect(() => {
-    dispatch(fetchDishList());
+    fetchCurrentUser();
   }, []);
   // const fetchMenuItem = async () => {
   //   try {
